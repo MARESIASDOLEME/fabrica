@@ -15,9 +15,13 @@ canal.json (bíblia do canal)
 
 Nada é postado sozinho: a fábrica entrega o vídeo pronto e você aprova.
 
-## Instalação (VPS com Docker)
+## Onde roda (VPS com Docker)
 
-`bash instalar.sh` constrói a imagem `fabrica-pov` e cria a agenda no cron. Na VPS, todo comando abaixo roda com `./rodar.sh` no lugar de `node fabrica.js` (ex.: `./rodar.sh novo --canal rio-pov`). O contêiner fica limitado a 1,5 CPU e 2 GB de memória; para mudar, defina FABRICA_CPUS e FABRICA_MEM.
+Na VPS, a fábrica roda num projeto Docker: um serviço baixa a `main` deste repositório a cada reinício, e outro roda `agendador.sh`, que chama `node fabrica.js agenda` de hora em hora. A configuração do projeto (compose e `.env`) fica só na VPS, fora do repositório.
+
+Consequência: uma mudança na `main` só entra em produção no próximo reinício, e **qualquer** reinício (inclusive queda ou manutenção da VPS) publica o que estiver na `main`. Trabalhe numa branch e só leve para a `main` o que já pode ir ao ar.
+
+Na VPS, os comandos abaixo rodam dentro do contêiner da fábrica.
 
 ## Comandos
 
@@ -27,7 +31,7 @@ Nada é postado sozinho: a fábrica entrega o vídeo pronto e você aprova.
 | `node fabrica.js novo --canal rio-pov --quantidade 3` | Produz 3 em sequência |
 | `node fabrica.js roteiro --canal rio-pov` | Só gera o roteiro (JSON) para revisar ou editar |
 | `node fabrica.js produzir --canal rio-pov --episodio arquivo.json` | Produz um roteiro escrito ou editado à mão |
-| `node fabrica.js agenda` | Roda o que estiver programado (é o que o cron chama) |
+| `node fabrica.js agenda` | Roda o que estiver programado (é o que o `agendador.sh` chama a cada hora) |
 | `node fabrica.js canais` | Lista canais, agenda e quantidade de episódios |
 
 Teste sem gastar: `TTS_PROVIDER=nenhum node fabrica.js produzir ...` (fica sem voz, só com a legenda).
@@ -39,11 +43,13 @@ Teste sem gastar: `TTS_PROVIDER=nenhum node fabrica.js produzir ...` (fica sem v
 3. Se o nicho precisar de cenários que ainda não existem, eles têm de ser criados em `src/browser/sets.js` e descritos em `src/catalog.js`. O roteirista só usa o que está no catálogo.
 4. Ligue a agenda: `"agenda": { "ativo": true, "por_dia": 1 }`.
 
-Cada canal guarda o próprio `historico.json`. O roteirista lê os últimos 15 episódios para não se repetir e para continuar a história.
+Cada canal guarda o próprio `historico.json`, com data, título, resumo e gancho de cada episódio feito por `novo` ou pela agenda. O roteirista lê os últimos 15 para não se repetir e recebe o gancho do último para continuar a história. Episódios feitos com `produzir` não entram no histórico.
 
 ## Cenários disponíveis
 
-calcadao (orla de Copacabana) · recepcao (hostel) · quarto (dormitório com beliches) · lapa (rua com arcos) · desembarque (aeroporto/rodoviária). Cada um aceita os horários dia, tarde ou noite.
+calcadao (orla de Copacabana) · recepcao, quarto, refeitorio, bar e terraco (dentro do hostel) · ladeira (do hostel até a praia) · praia (ao pé da ladeira) · roda (roda de samba embaixo da pedra) · lapa (rua com arcos) · gavea (topo da trilha, com paredão de escalada) · desembarque (aeroporto/rodoviária). Horários: dia, tarde, noite e apagao (cidade sem luz). A descrição de cada um, com coordenadas, está em `src/catalog.js`.
+
+As cores do hostel (verde-escuro com detalhes em amarelo) ficam em `VERDE_HOSTEL` e `AMARELO_HOSTEL`, no início dos cenários em `src/browser/sets.js`.
 
 Poses das mãos: repouso, escondidas, empurrar, celular, acenar, mala, apontar.
 Gestos do elenco: acenar, apontar, bracos, falar, pensar.
@@ -60,5 +66,5 @@ Ponha arquivos .mp3 com licença de uso comercial em `canais/<canal>/musicas/`. 
 ## Obrigações na publicação
 
 - Marque o vídeo como **conteúdo gerado por IA** no TikTok. A legenda padrão já leva o aviso.
-- Não use marcas, pessoas reais nem o Cristo Redentor: a imagem dele tem direitos controlados pela Arquidiocese do Rio. Essa regra já está no roteirista.
+- Não use marcas, pessoas reais nem o Cristo Redentor: a Arquidiocese do Rio reivindica direitos sobre a imagem dele. Essa regra já está no roteirista.
 - Se um canal fizer publicidade dos hostels, a lei exige identificar como conteúdo publicitário.
