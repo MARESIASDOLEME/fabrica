@@ -30,9 +30,9 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Fala,Fredoka,80,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,-1,0,0,0,100,100,0,0,1,7,0,2,90,90,560,1
+Style: Fala,Fredoka,80,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,-1,0,0,0,100,100,0,0,1,7,0,2,90,150,560,1
 Style: Escolha,Fredoka,74,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8000000,-1,0,0,0,100,100,0,0,3,26,0,5,90,90,0,1
-Style: Chamada,Fredoka,58,&H004BB8F2,&H00FFFFFF,&H00141414,&H00000000,-1,0,0,0,100,100,0,0,1,6,0,2,90,90,300,1
+Style: Chamada,Fredoka,58,&H004BB8F2,&H00FFFFFF,&H00141414,&H00000000,-1,0,0,0,100,100,0,0,1,6,0,2,90,150,560,1
 Style: Topo,Fredoka,64,&H00141414,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,120,120,230,1
 
 [Events]
