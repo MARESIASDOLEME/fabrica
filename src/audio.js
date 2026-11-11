@@ -24,8 +24,10 @@ const AMBIENTE = {
   rua: 'anoisesrc=color=pink:amplitude=0.12,lowpass=f=2500',
   interior: 'anoisesrc=color=pink:amplitude=0.04,lowpass=f=1200',
   saguao: 'anoisesrc=color=pink:amplitude=0.08,lowpass=f=3000,aecho=0.8:0.6:120:0.3',
+  multidao: 'anoisesrc=color=pink:amplitude=0.2,bandpass=f=700:w=900,volume=\'0.8+0.2*sin(2*PI*t/3)\':eval=frame',
+  vento: 'anoisesrc=color=brown:amplitude=0.4,lowpass=f=500,volume=\'0.4+0.3*sin(2*PI*t/5)\':eval=frame',
 };
-export const AMBIENTE_POR_CENARIO = { calcadao: 'praia', lapa: 'rua', recepcao: 'interior', quarto: 'interior', desembarque: 'saguao' };
+export const AMBIENTE_POR_CENARIO = { calcadao: 'praia', lapa: 'rua', recepcao: 'interior', quarto: 'interior', desembarque: 'saguao', terraco: 'vento', refeitorio: 'interior', bar: 'saguao', ladeira: 'rua', praia: 'praia', roda: 'multidao', gavea: 'vento' };
 
 // Efeitos sonoros sintetizados pelo ffmpeg: [duração em s, fonte lavfi]. Sem arquivo externo, sem risco de direitos.
 const SFX = {

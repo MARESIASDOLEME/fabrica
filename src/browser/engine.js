@@ -123,7 +123,7 @@ export function createEngine(canvas, TL) {
   function charPos(sc, c, u) {
     const r = interp(c.walk && c.walk.length ? c.walk : [{ t: 0, at: c.at }], u, 'at');
     const at = Array.isArray(r) ? r : lerpArr(r.a, r.b, r.k);
-    return new THREE.Vector3(at[0], c.y || 0, at[1]);
+    return new THREE.Vector3(at[0], (c.y || 0) + (sc.ground ? sc.ground(at[0], at[1]) : 0), at[1]);
   }
   function resolveLook(sc, look, u) {
     if (typeof look === 'string') {
@@ -131,7 +131,9 @@ export function createEngine(canvas, TL) {
       if (c) { const p = charPos(sc, c, u); p.y += 1.72 * ((c.spec && c.spec.height) || 1); return p; }
       return new THREE.Vector3(0, 1.6, -5);
     }
-    return new THREE.Vector3(...look);
+    const v = new THREE.Vector3(...look);
+    if (sc.ground) v.y += sc.ground(v.x, v.z); // em terreno inclinado, alturas são relativas ao chão
+    return v;
   }
   function amplitude(id, time) {
     for (const ln of TL.lines) {
@@ -169,6 +171,7 @@ export function createEngine(canvas, TL) {
     let shake = 0;
     for (const s of sc.shake || []) if (u >= s.t0 && u <= s.t1) shake = Math.max(shake, s.amp ?? 0.03);
     if (shake) pos.add(new THREE.Vector3(Math.sin(time * 41) * shake, Math.sin(time * 37 + 1) * shake, 0));
+    if (sc.ground) pos.y += sc.ground(pos.x, pos.z);
     camera.position.copy(pos);
     camera.lookAt(look);
     camera.rotation.z += Math.sin(time * 3.25) * 0.012 * walk;
