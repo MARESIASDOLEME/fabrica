@@ -50,7 +50,7 @@ async function novo(id) {
   avisos.forEach((a) => log('  aviso:', a));
   log(`[${id}] "${episodio.titulo}" (~${episodio.duracao_estimada} s)`);
   const r = await produzir(episodio, canal, { log });
-  hist.push({ data: new Date().toISOString().slice(0, 10), titulo: episodio.titulo, resumo: episodio.resumo || '', pasta: path.relative(ROOT, r.dir) });
+  hist.push({ data: new Date().toISOString().slice(0, 10), titulo: episodio.titulo, resumo: episodio.resumo || '', gancho: typeof episodio.gancho === 'string' ? episodio.gancho.trim() : '', pasta: path.relative(ROOT, r.dir) });
   fs.writeFileSync(histFile(id), JSON.stringify(hist, null, 2));
   log(`[${id}] pronto: ${r.mp4}`);
   await avisar({ evento: 'video_pronto', canal: id, nome_canal: canal.nome, titulo: episodio.titulo, duracao_s: Math.round(r.duracao), pasta: r.dir, video: r.mp4, capa: path.join(r.dir, 'capa.jpg'), legenda: r.legenda, avisos });

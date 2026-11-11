@@ -67,12 +67,12 @@ Transições: "corte" ou "piscar" (o protagonista pisca; bom para passagem de te
 - tremor: [{t0,t1,amp}] com amp 0.01–0.05 para susto ou correria.
 
 # Episódios anteriores (não repita; dê continuidade se a bíblia pedir)
-${historico.length ? historico.map((h) => `- ${h.data}: ${h.titulo} — ${h.resumo || ''}`).join('\n') : '(nenhum ainda: este é o episódio 1)'}
-
+${historico.length ? historico.map((h) => `- ${h.data}: ${h.titulo} — ${h.resumo || ''}${h.gancho ? ` Gancho deixado: ${h.gancho}` : ''}`).join('\n') : '(nenhum ainda: este é o episódio 1)'}
+${historico.at(-1)?.gancho ? `O último episódio terminou com este gancho: "${historico.at(-1).gancho}". Este episódio responde ou avança esse gancho.\n` : ''}
 # Saída
 Responda SOMENTE com um JSON válido, sem comentários e sem markdown, neste formato (exemplo curto):
 ${JSON.stringify(EXEMPLO)}
-Inclua também "resumo": uma frase descrevendo o que aconteceu (para continuidade).`;
+Inclua também "resumo": uma frase descrevendo o que aconteceu (para continuidade), e "gancho": a pergunta concreta que o final deixa aberta para o próximo episódio (uma frase).`;
 }
 
 async function chamarGemini(prompt) {
