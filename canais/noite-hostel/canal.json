@@ -6,7 +6,7 @@
   "protagonista": {
     "descricao": "Mochileiro brasileiro, 20 e poucos anos, assustado mas teimoso",
     "voz": "Achird",
-    "estilo_voz": "jovem, tenso, falando baixo",
+    "estilo_voz": "",
     "cor_legenda": "#ffffff",
     "maos": {
       "skin": "#c98e62",
@@ -19,7 +19,7 @@
     "bia": {
       "nome": "Bia",
       "voz": "Kore",
-      "estilo_voz": "séria, voz baixa e firme",
+      "estilo_voz": "séria",
       "cor_legenda": "#ffd166",
       "visual": {
         "skin": "morena",
@@ -33,7 +33,7 @@
     "lucas": {
       "nome": "Lucas",
       "voz": "Puck",
-      "estilo_voz": "argentino falando portunhol, nervoso, sussurrando",
+      "estilo_voz": "com sotaque argentino",
       "cor_legenda": "#b5e48c",
       "visual": {
         "skin": "clara",
@@ -46,7 +46,7 @@
     "ze": {
       "nome": "Seu Zé",
       "voz": "Charon",
-      "estilo_voz": "aflito, gritando abafado atrás de uma porta",
+      "estilo_voz": "gritando",
       "cor_legenda": "#8ecae6",
       "visual": {
         "skin": "escura",

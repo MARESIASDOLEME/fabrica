@@ -9,43 +9,25 @@
       "cenario": "quarto",
       "params": {"horario": "apagao", "parede": "#1e4d34"},
       "transicao": "corte",
-      "pausa_final": 1.0,
-      "trilha": "silencio",
-      "sfx": [{"t": 0.0, "tipo": "estalo"}],
-      "elenco": [{"id": "lucas", "em": [1.7, 2.7], "gestos": []}],
-      "camera": [
-        {"t": 0, "pos": [-1.55, 1.0, 1.5], "olhar": "lucas"},
-        {"t": 0.49, "pos": [-1.55, 1.0, 1.5], "olhar": "lucas"},
-        {"t": 0.83, "pos": [-1.3, 1.6, 1.5], "olhar": "lucas"},
-        {"t": 1, "pos": [-0.9, 1.6, 1.5], "olhar": [2.94, 1.5, 1.4]}
-      ],
-      "maos": [{"t": 0, "pose": "celular"}],
-      "tremor": [],
-      "falas": [
-        {"quem": "lucas", "texto": "Che, acorda. O mar parou."},
-        {"quem": "voce", "texto": "Mar não para, Lucas."}
-      ]
-    },
-    {
-      "cenario": "quarto",
-      "params": {"horario": "apagao", "parede": "#1e4d34"},
-      "transicao": "corte",
       "pausa_final": 0.4,
       "trilha": "tensao_baixa",
-      "sfx": [{"t": 0.25, "tipo": "batida_coracao"}],
-      "elenco": [{"id": "lucas", "em": [1.7, 2.7], "gestos": [{"t0": 0.7, "t1": 0.91, "tipo": "acenar"}]}],
+      "sfx": [{"t": 0.0, "tipo": "estalo"}, {"t": 0.27, "tipo": "batida_coracao"}],
+      "elenco": [{"id": "lucas", "em": [1.7, 2.7], "gestos": [{"t0": 0.8, "t1": 0.94, "tipo": "acenar"}]}],
       "camera": [
-        {"t": 0, "pos": [-0.9, 1.6, 1.5], "olhar": [2.94, 1.5, 1.4]},
-        {"t": 0.1, "pos": [-0.55, 1.6, 1.5], "olhar": [2.94, 1.5, 1.4]},
-        {"t": 0.23, "pos": [0.0, 1.6, 1.5], "olhar": [2.4, 0.9, -1.5]},
-        {"t": 0.45, "pos": [0.0, 1.6, 1.5], "olhar": [-2.4, 0.9, -1.5]},
-        {"t": 0.54, "pos": [0.0, 1.6, 1.5], "olhar": "lucas"},
+        {"t": 0, "pos": [-1.55, 1.0, 1.5], "olhar": "lucas"},
+        {"t": 0.18, "pos": [-1.55, 1.0, 1.5], "olhar": "lucas"},
+        {"t": 0.24, "pos": [-1.3, 1.6, 1.5], "olhar": [2.4, 0.8, -1.5]},
+        {"t": 0.36, "pos": [-0.6, 1.6, 1.5], "olhar": [-2.4, 0.8, -1.5]},
+        {"t": 0.44, "pos": [0.0, 1.6, 1.5], "olhar": "lucas"},
         {"t": 1, "pos": [0.1, 1.6, 1.4], "olhar": "lucas"}
       ],
-      "maos": [{"t": 0, "pose": "escondidas"}],
-      "tremor": [{"t0": 0.16, "t1": 0.47, "amp": 0.02}],
+      "maos": [{"t": 0, "pose": "celular"}, {"t": 0.18, "pose": "escondidas"}],
+      "tremor": [{"t0": 0.25, "t1": 0.43, "amp": 0.02}],
       "falas": [
-        {"quem": "lucas", "texto": "Pior: as outras camas tão vazias. E ainda quentes."},
+        {"quem": "lucas", "texto": "Acorda. O mar parou."},
+        {"quem": "voce", "texto": "Cadê todo mundo?"},
+        {"quem": "lucas", "texto": "Sumiram. A gente é o próximo."},
+        {"quem": "voce", "texto": "Então a gente desce. Agora."},
         {"quem": "lucas", "texto": "Seu Zé ficou lá fora. Lembra? 'Dorme bem, Mochilinha!'"}
       ]
     },
@@ -61,15 +43,15 @@
       "transicao": "piscar",
       "pausa_final": 0.4,
       "trilha": "tensao_crescente",
-      "sfx": [{"t": 0.03, "tipo": "passos"}, {"t": 0.49, "tipo": "relogio"}],
+      "sfx": [{"t": 0.03, "tipo": "passos"}, {"t": 0.53, "tipo": "relogio"}],
       "elenco": [{"id": "bia", "em": [0, -3.2], "gestos": []}, {"id": "lucas", "em": [-3.0, 0.0], "gestos": []}],
       "camera": [
         {"t": 0, "pos": [0, 1.6, 3.4], "olhar": "bia"},
-        {"t": 0.17, "pos": [-0.6, 1.6, 1.6], "olhar": "bia"},
-        {"t": 0.36, "pos": [-1.8, 1.6, -0.6], "olhar": [-2.6, 1.7, -4.43]},
-        {"t": 0.52, "pos": [-2.5, 1.6, -2.0], "olhar": [-2.6, 1.7, -4.43]},
-        {"t": 0.58, "pos": [-2.4, 1.6, -1.95], "olhar": "bia"},
-        {"t": 0.96, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
+        {"t": 0.24, "pos": [-0.6, 1.6, 1.4], "olhar": "bia"},
+        {"t": 0.35, "pos": [-0.9, 1.6, 0.6], "olhar": [-2.6, 1.7, -4.43]},
+        {"t": 0.49, "pos": [-1.3, 1.6, -0.4], "olhar": [-2.6, 1.7, -4.43]},
+        {"t": 0.56, "pos": [-1.4, 1.6, -0.8], "olhar": "bia"},
+        {"t": 0.94, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
         {"t": 1, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"}
       ],
       "maos": [{"t": 0, "pose": "escondidas"}],
@@ -96,9 +78,9 @@
       "elenco": [{"id": "bia", "em": [0, -3.2], "gestos": []}, {"id": "lucas", "em": [-3.0, 0.0], "gestos": []}],
       "camera": [
         {"t": 0, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
-        {"t": 0.17, "pos": [-1.6, 1.6, -1.7], "olhar": "lucas"},
-        {"t": 0.69, "pos": [-1.6, 1.6, -1.7], "olhar": "lucas"},
-        {"t": 0.81, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
+        {"t": 0.19, "pos": [-1.6, 1.6, -1.7], "olhar": "lucas"},
+        {"t": 0.67, "pos": [-1.6, 1.6, -1.7], "olhar": "lucas"},
+        {"t": 0.77, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
         {"t": 1, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"}
       ],
       "maos": [{"t": 0, "pose": "escondidas"}],
@@ -116,34 +98,29 @@
       },
       "transicao": "corte",
       "trilha": "perseguicao",
-      "sfx": [
-        {"t": 0.03, "tipo": "batidas_porta"},
-        {"t": 0.25, "tipo": "batidas_porta"},
-        {"t": 0.47, "tipo": "riser"},
-        {"t": 0.76, "tipo": "impacto_grave"}
-      ],
+      "sfx": [{"t": 0.04, "tipo": "batidas_porta"}, {"t": 0.32, "tipo": "riser"}, {"t": 0.69, "tipo": "impacto_grave"}],
       "elenco": [
         {"id": "bia", "em": [0, -3.2], "gestos": []},
         {
           "id": "lucas",
           "em": [-3.0, 0.0],
-          "caminho": [{"t": 0.25, "em": [-3.0, 0.0]}, {"t": 0.46, "em": [-1.8, 2.2]}],
-          "gestos": [{"t0": 0.25, "t1": 0.46, "tipo": "bracos"}]
+          "caminho": [{"t": 0.27, "em": [-3.0, 0.0]}, {"t": 0.43, "em": [-1.8, 2.2]}],
+          "gestos": [{"t0": 0.27, "t1": 0.43, "tipo": "bracos"}]
         }
       ],
       "camera": [
         {"t": 0, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
-        {"t": 0.04, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
-        {"t": 0.09, "pos": [-1.5, 1.6, -1.5], "olhar": [0, 1.3, 4.45]},
-        {"t": 0.25, "pos": [-1.1, 1.6, -0.6], "olhar": [0, 1.3, 4.45]},
-        {"t": 0.3, "pos": [-1.0, 1.6, -0.4], "olhar": "lucas"},
-        {"t": 0.46, "pos": [-0.8, 1.6, 0.1], "olhar": "lucas"},
-        {"t": 0.52, "pos": [-0.6, 1.6, 0.6], "olhar": [0, 1.3, 4.45]},
-        {"t": 0.73, "pos": [0, 1.6, 1.6], "olhar": [0.3, 1.25, 4.45]},
+        {"t": 0.05, "pos": [-1.6, 1.6, -1.7], "olhar": "bia"},
+        {"t": 0.1, "pos": [-1.5, 1.6, -1.5], "olhar": [0, 1.3, 4.45]},
+        {"t": 0.27, "pos": [-1.1, 1.6, -0.6], "olhar": [0, 1.3, 4.45]},
+        {"t": 0.31, "pos": [-1.0, 1.6, -0.4], "olhar": "lucas"},
+        {"t": 0.43, "pos": [-0.8, 1.6, 0.1], "olhar": "lucas"},
+        {"t": 0.49, "pos": [-0.6, 1.6, 0.6], "olhar": [0, 1.3, 4.45]},
+        {"t": 0.65, "pos": [0, 1.6, 1.6], "olhar": [0.3, 1.25, 4.45]},
         {"t": 1, "pos": [0, 1.6, 1.65], "olhar": [0.3, 1.25, 4.45]}
       ],
-      "maos": [{"t": 0, "pose": "escondidas"}, {"t": 0.64, "pose": "empurrar"}],
-      "tremor": [{"t0": 0.03, "t1": 0.23, "amp": 0.04}, {"t0": 0.64, "t1": 0.76, "amp": 0.015}],
+      "maos": [{"t": 0, "pose": "escondidas"}, {"t": 0.6, "pose": "empurrar"}],
+      "tremor": [{"t0": 0.04, "t1": 0.25, "amp": 0.04}, {"t0": 0.6, "t1": 0.69, "amp": 0.01}],
       "falas": [
         {"quem": "ze", "texto": "Meu filho, abre! Vem água aí!"},
         {"quem": "lucas", "texto": "É o Seu Zé! Ele vai se afogar!"},
@@ -158,18 +135,18 @@
       {"letra": "A", "rotulo": "Abre a porta", "desfecho": "apocalipse"},
       {"letra": "B", "rotulo": "Corre pro quarto", "desfecho": "continua"}
     ],
-    "pista_justa": "Na cena 2, Lucas lembra que o Seu Zé chama você de 'Mochilinha'; a voz na porta diz 'meu filho'. O mural 'SÓ SAIAM DE DIA' e o aviso da Bia reforçam.",
+    "pista_justa": "No quarto, Lucas lembra que o Seu Zé chama você de 'Mochilinha'; a voz na porta diz 'meu filho'. O mural 'SÓ SAIAM DE DIA' e o aviso da Bia reforçam.",
     "desfecho_apocalipse": "A porta abre para uma rua vazia e seca. Acima dos prédios da orla, o mar volta como uma parede escura. Silêncio. FIM."
   },
   "pistas_plantadas": [
     "Seu Zé chama o protagonista de 'Mochilinha'",
     "O mural da recepção já dizia 'SÓ SAIAM DE DIA' antes de tudo acontecer",
-    "Camas vazias e ainda quentes: os hóspedes saíram há pouco"
+    "Os hóspedes sumiram dormindo: as camas estão vazias"
   ],
   "perguntas_abertas": [
     "Quem está batendo na porta, se não é o Seu Zé?",
     "Para onde foram os outros hóspedes?",
     "Como a Bia sabia — e quem escreveu o mural?"
   ],
-  "resumo": "Às 3h a cidade apaga e o mar para; os hóspedes somem e Bia avisa que ele volta em dois minutos; uma voz que diz ser o Seu Zé implora para entrar."
+  "resumo": "Às 3h a cidade apaga, o mar para e os hóspedes somem; Bia avisa que o mar volta em dois minutos e uma voz que diz ser o Seu Zé implora para entrar."
 }
