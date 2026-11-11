@@ -1,0 +1,7 @@
+node_modules
+saida
+cache
+dist
+.env
+.fabrica.lock
+*.zip

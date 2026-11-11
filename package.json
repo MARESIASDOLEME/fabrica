@@ -1,0 +1,19 @@
+{
+  "name": "fabrica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/fredoka": "^5.3.0",
+    "esbuild": "^0.28.2",
+    "puppeteer-core": "^23.11.1",
+    "three": "^0.170.0"
+  }
+}

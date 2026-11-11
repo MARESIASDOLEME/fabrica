@@ -1,0 +1,76 @@
+{
+  "nome": "POV no Rio",
+  "nicho": "Turismo / vida no Rio",
+  "duracao_alvo": "40 a 60",
+  "biblia": "Série contínua: o protagonista é um mochileiro que acabou de chegar ao Rio de Janeiro e está hospedado num hostel em Copacabana. Cada episódio é uma situação do cotidiano de quem visita o Rio: chegar, se perder, praia, quiosque, ônibus, Lapa à noite, dividir quarto com gente do mundo todo. Humor de situação e choque cultural, com carinho pela cidade, nunca zombando dos cariocas nem dos turistas. Sempre que possível inclui UMA dica prática e verdadeira do Rio (ex.: protetor solar, água de coco, não deixar celular solto na areia, ônibus pelo app). Tom leve e acolhedor, como um amigo carioca te recebendo. Arcos: semana 1 = chegada e adaptação; depois, amizades no hostel e passeios.",
+  "protagonista": {
+    "descricao": "Mochileiro brasileiro de outra cidade, 20 e poucos anos, curioso e um pouco atrapalhado",
+    "voz": "Achird",
+    "estilo_voz": "jovem, tom curioso e meio sem graça",
+    "cor_legenda": "#ffffff",
+    "maos": {
+      "skin": "#c98e62",
+      "sleeve": "#2f5fa8",
+      "phoneText": "MAPA",
+      "bagColor": "#d9483b"
+    }
+  },
+  "personagens_fixos": {
+    "bia": {
+      "nome": "Bia",
+      "voz": "Laomedeia",
+      "estilo_voz": "carioca, animada e rápida",
+      "cor_legenda": "#ffd166",
+      "visual": {
+        "skin": "morena",
+        "shirt": "#e76f51",
+        "hair": "black",
+        "hairColor": "#2b1d14",
+        "outfit": "uniforme"
+      }
+    },
+    "ze": {
+      "nome": "Seu Zé",
+      "voz": "Charon",
+      "estilo_voz": "carioca, senhor bem-humorado e sem pressa",
+      "cor_legenda": "#8ecae6",
+      "visual": {
+        "skin": "escura",
+        "shirt": "#ffffff",
+        "pants": "#2a9d8f",
+        "hair": "careca",
+        "hat": "chapeu",
+        "hatColor": "#e8d28a",
+        "prop": "bandeja",
+        "height": 0.97
+      }
+    },
+    "lucas": {
+      "nome": "Lucas",
+      "voz": "Puck",
+      "estilo_voz": "argentino falando portunhol, empolgado",
+      "cor_legenda": "#b5e48c",
+      "visual": {
+        "skin": "clara",
+        "shirt": "#3a86ff",
+        "hair": "longo",
+        "hairColor": "#c48a3f",
+        "outfit": "regata"
+      }
+    }
+  },
+  "regras_extras": [
+    "Bia é a recepcionista do hostel; Seu Zé tem o quiosque na orla; Lucas é o argentino do beliche de cima.",
+    "A placa do hostel é sempre \"HOSTEL\" (sem nome de marca)."
+  ],
+  "estilo": {
+    "fisheye": 1.1,
+    "fov": 92
+  },
+  "musicas_dir": "musicas",
+  "rodape_legenda": "Conteúdo animado criado com IA.",
+  "agenda": {
+    "ativo": true,
+    "por_dia": 1
+  }
+}

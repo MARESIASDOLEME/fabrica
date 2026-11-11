@@ -1,0 +1,53 @@
+// Legendas ASS (queimadas no vídeo) — fonte Fredoka, contorno grosso, cor por personagem
+import fs from 'node:fs';
+
+const tc = (s) => {
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = (s % 60).toFixed(2).padStart(5, '0');
+  return `${h}:${String(m).padStart(2, '0')}:${sec}`;
+};
+const assColor = (hex) => { const h = hex.replace('#', ''); return `&H00${h.slice(4, 6)}${h.slice(2, 4)}${h.slice(0, 2)}`.toUpperCase(); };
+const esc = (t) => t.replace(/[{}]/g, '').replace(/\n/g, ' ');
+
+function pedacos(texto, max = 30) {
+  const palavras = texto.split(/\s+/);
+  const out = [];
+  let cur = '';
+  for (const p of palavras) {
+    if ((cur + ' ' + p).trim().length > max && cur) { out.push(cur); cur = p; } else cur = (cur + ' ' + p).trim();
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+// linhas: [{start,end,text,color}], topo: {text, start, end}
+export function gerarASS({ linhas, topo, saida, W = 1080, H = 1920 }) {
+  const head = `[Script Info]
+ScriptType: v4.00+
+PlayResX: ${W}
+PlayResY: ${H}
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Fala,Fredoka,80,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,-1,0,0,0,100,100,0,0,1,7,0,2,90,90,560,1
+Style: Topo,Fredoka,64,&H00141414,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,120,120,230,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+`;
+  const ev = [];
+  if (topo && topo.text) ev.push(`Dialogue: 1,${tc(topo.start)},${tc(topo.end)},Topo,,0,0,0,,${esc(topo.text)}`);
+  for (const l of linhas) {
+    const ps = pedacos(l.text);
+    const total = ps.reduce((a, p) => a + p.length, 0);
+    let t = l.start;
+    for (const p of ps) {
+      const d = (l.end - l.start) * (p.length / total);
+      ev.push(`Dialogue: 0,${tc(t)},${tc(t + d)},Fala,,0,0,0,,{\\c${assColor(l.color || '#ffffff')}\\fad(60,0)}${esc(p)}`);
+      t += d;
+    }
+  }
+  fs.writeFileSync(saida, head + ev.join('\n') + '\n');
+  return saida;
+}
