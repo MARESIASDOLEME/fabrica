@@ -62,7 +62,8 @@
   "regras_extras": [
     "A placa do hostel é sempre \"HOSTEL\".",
     "Suspense sem violência gráfica.",
-    "Funcionários do hostel usam sempre o uniforme verde com a bola amarela no peito (outfit \"uniforme\", emblema \"#ffd400\")."
+    "Funcionários do hostel usam sempre o uniforme verde com a bola amarela no peito (outfit \"uniforme\", emblema \"#ffd400\").",
+    "Dentro do hostel (recepcao, quarto, refeitorio, bar) as paredes são verde-escuras (params.parede \"#1e4d34\") com detalhes amarelos (na recepcao, params.balcao \"#ffd400\")."
   ],
   "estilo": {
     "fisheye": 1.15,
