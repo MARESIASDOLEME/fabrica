@@ -34,7 +34,7 @@ ${canal.protagonista.descricao}. A voz dele já está definida; use "quem": "voc
 ${JSON.stringify(canal.personagens_fixos || {}, null, 1)}
 
 # Regras de formato (obrigatórias)
-- Duração alvo: ${canal.duracao_alvo || '40 a 65'} segundos de fala no total (≈ 14 caracteres por segundo). Entre 6 e 14 falas.
+- Duração alvo: ${canal.duracao_alvo || '40 a 65'} segundos de fala no total (as vozes falam ≈ 8 caracteres por segundo, ou seja, 320 a 480 caracteres de fala no total). Entre 6 e 14 falas.
 - Gancho nos primeiros 2 segundos: a primeira fala já cria tensão, curiosidade ou humor.
 - 2 a 4 cenas. Última fala termina com uma virada ou um gancho para o próximo episódio (pergunta, ameaça, surpresa). Nada de moral da história.
 - Falas curtas e naturais, português do Brasil coloquial e carioca quando couber. Sem palavrão, sem conteúdo sexual, sem violência gráfica, sem marcas registradas, sem pessoas reais, sem o Cristo Redentor.
@@ -159,8 +159,8 @@ export function validar(ep, canal) {
     });
   });
   if (!ep.cenas.some((c) => c.falas.length)) throw new Error('episódio sem falas');
-  const est = totalChars / 14;
-  if (est > 95) throw new Error(`episódio longo demais (~${est.toFixed(0)} s)`);
+  const est = totalChars / 8;
+  if (est > 75) throw new Error(`episódio longo demais (~${est.toFixed(0)} s)`);
   if (est < 15) throw new Error(`episódio curto demais (~${est.toFixed(0)} s)`);
   ep.duracao_estimada = Math.round(est);
   return { episodio: ep, avisos };
