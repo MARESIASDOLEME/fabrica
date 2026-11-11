@@ -179,6 +179,9 @@ function calcadaoTexture() {
 }
 
 // ---------------- CENÁRIOS ----------------
+// Cores do hostel (cânone): verde-escuro predominante, detalhes em amarelo
+const VERDE_HOSTEL = '#1e4d34', AMARELO_HOSTEL = '#ffd400';
+
 export const SETS = {
   // Orla de Copacabana: calçadão em ondas, areia, mar, morros
   calcadao(params, r) {
@@ -219,15 +222,15 @@ export const SETS = {
   recepcao(params, r) {
     const p = TIMES[params.horario] || TIMES.dia;
     const scene = base(p);
-    room(scene, { w: 8, d: 9, h: 3, wall: params.parede || '#f6d7a7', wall2: '#e9e2d0', floor: '#b98b5e' });
+    room(scene, { w: 8, d: 9, h: 3, wall: params.parede || VERDE_HOSTEL, wall2: '#e9e2d0', floor: '#b98b5e' });
     // balcão
-    scene.add(box(4.2, 1.1, 0.7, params.balcao || '#2a9d8f', [0, 0.55, -2.6]));
+    scene.add(box(4.2, 1.1, 0.7, params.balcao || AMARELO_HOSTEL, [0, 0.55, -2.6]));
     scene.add(box(4.4, 0.08, 0.85, '#f5efe0', [0, 1.14, -2.6]));
     scene.add(box(0.5, 0.35, 0.05, '#222', [-1.2, 1.36, -2.75], [-0.2, 0, 0]));
     scene.add(cyl(0.09, 0.11, 0.08, '#d4af37', [1.1, 1.22, -2.4]));
     scene.add(sph(0.03, '#d4af37', [1.1, 1.28, -2.4]));
     // placa
-    const s = sign(params.placa || 'HOSTEL', 3.2, 0.7, { bg: '#e76f51', fg: '#fff' });
+    const s = sign(params.placa || 'HOSTEL', 3.2, 0.7, { bg: AMARELO_HOSTEL, fg: VERDE_HOSTEL });
     s.position.set(0, 2.45, -4.43); scene.add(s);
     // quadro de chaves
     scene.add(box(1.2, 0.7, 0.05, '#7a5230', [2.5, 1.7, -4.42]));
@@ -249,7 +252,7 @@ export const SETS = {
   quarto(params, r) {
     const p = TIMES[params.horario] || TIMES.dia;
     const scene = base(p);
-    room(scene, { w: 6, d: 7, h: 2.9, wall: params.parede || '#cde7e3', wall2: '#f0ede4', floor: '#a9784f' });
+    room(scene, { w: 6, d: 7, h: 2.9, wall: params.parede || VERDE_HOSTEL, wall2: '#f0ede4', floor: '#a9784f' });
     const bunk = (x, z, rot, c) => {
       const g = new THREE.Group();
       for (const [bx, bz] of [[-0.95, -0.45], [0.95, -0.45], [-0.95, 0.45], [0.95, 0.45]]) g.add(box(0.08, 2.1, 0.08, '#4a4e69', [bx, 1.05, bz]));
@@ -447,9 +450,10 @@ Object.assign(SETS, {
     const p = TIMES[params.horario] || TIMES.noite;
     const scene = base(p);
     scene.add(box(8, 0.2, 8, '#9c8f80', [0, -0.1, 0]));
-    for (const [x, z, w, d] of [[0, -4, 8, 0.25], [0, 4, 8, 0.25], [-4, 0, 0.25, 8], [4, 0, 0.25, 8]]) scene.add(box(w, 1.1, d, '#e9e2d0', [x, 0.55, z]));
+    // mureta verde-escura: o gato branco se destaca nela
+    for (const [x, z, w, d] of [[0, -4, 8, 0.25], [0, 4, 8, 0.25], [-4, 0, 0.25, 8], [4, 0, 0.25, 8]]) scene.add(box(w, 1.1, d, VERDE_HOSTEL, [x, 0.55, z]));
     // casinha da escada (a câmera chega por ela)
-    scene.add(box(2.2, 2.6, 1.6, '#e9e2d0', [-2.6, 1.3, 3.1]), box(0.9, 2.0, 0.06, '#264653', [-2.6, 1.0, 2.28]));
+    scene.add(box(2.2, 2.6, 1.6, VERDE_HOSTEL, [-2.6, 1.3, 3.1]), box(0.9, 2.0, 0.06, AMARELO_HOSTEL, [-2.6, 1.0, 2.28]));
     scene.add(box(1.6, 0.45, 0.5, '#7a5230', [-3.3, 0.22, -1]), box(1.6, 0.45, 0.5, '#7a5230', [-3.3, 0.22, 1]));
     scene.add(cyl(0.18, 0.16, 0.12, '#888', [-2.9, 0.06, 0]), cyl(0.12, 0.12, 0.08, '#cfcfcf', [3.6, 1.14, 2]));
     scene.add(plant([3.5, 0, 3.4], 1.1), plant([3.5, 0, -3.4], 0.9));
@@ -471,17 +475,17 @@ Object.assign(SETS, {
   refeitorio(params, r) {
     const p = TIMES[params.horario] || TIMES.dia;
     const scene = base(p);
-    room(scene, { w: 8, d: 9, h: 3, wall: params.parede || '#fbe3b8', wall2: '#efe6d2', floor: '#9e7451' });
+    room(scene, { w: 8, d: 9, h: 3, wall: params.parede || VERDE_HOSTEL, wall2: '#efe6d2', floor: '#9e7451' });
     uniformedTable(scene, -1.6, -0.8, 3.2); uniformedTable(scene, 1.6, -0.8, 3.2); uniformedTable(scene, -1.6, 2.0, 3.2); uniformedTable(scene, 1.6, 2.0, 3.2);
     // bancada da cozinha
-    scene.add(box(5, 0.95, 0.7, '#2a9d8f', [0.6, 0.47, -3.9]), box(5.2, 0.06, 0.8, '#f5efe0', [0.6, 0.98, -3.9]));
+    scene.add(box(5, 0.95, 0.7, AMARELO_HOSTEL, [0.6, 0.47, -3.9]), box(5.2, 0.06, 0.8, '#f5efe0', [0.6, 0.98, -3.9]));
     scene.add(sph(0.22, '#e9c46a', [-0.8, 1.15, -3.9], [1, 0.5, 1]), sph(0.08, '#f4a261', [-0.85, 1.25, -3.85]), sph(0.08, '#e63946', [-0.7, 1.25, -3.95]), sph(0.08, '#b5e48c', [-0.9, 1.25, -4.0]));
     scene.add(box(0.4, 0.5, 0.35, '#333', [1.6, 1.25, -3.9]), cyl(0.12, 0.12, 0.6, '#c0c0c0', [2.4, 1.3, -3.9]));
     scene.add(box(4, 0.06, 0.3, '#7a5230', [0.6, 2.0, -4.3]));
     for (let i = 0; i < 8; i++) scene.add(cyl(0.05, 0.05, 0.12, SHIRTS[i % SHIRTS.length], [-1.2 + i * 0.5, 2.09, -4.3]));
     const louro = parrotCage([-3.2, 0, -3.5]); scene.add(louro.g);
     scene.add(windowView(p, 2.2, 1.5, [3.94, 1.6, 0.5], -Math.PI / 2));
-    const s = sign(params.placa || 'CAFÉ DA MANHÃ 7h–10h', 2.4, 0.5, { bg: '#264653', fg: '#ffd166' }); s.position.set(-1.2, 2.45, -4.43); scene.add(s);
+    const s = sign(params.placa || 'CAFÉ DA MANHÃ 7h–10h', 2.4, 0.5, { bg: AMARELO_HOSTEL, fg: VERDE_HOSTEL }); s.position.set(-1.2, 2.45, -4.43); scene.add(s);
     return { scene, update: (t) => louro.tick(t) };
   },
 
@@ -489,7 +493,7 @@ Object.assign(SETS, {
   bar(params, r) {
     const p = TIMES[params.horario] || TIMES.noite;
     const scene = base(p);
-    room(scene, { w: 9, d: 8, h: 3, wall: params.parede || '#4b2e5c', wall2: '#3a2448', floor: '#5a3d2b', ceiling: '#2a1d33' });
+    room(scene, { w: 9, d: 8, h: 3, wall: params.parede || VERDE_HOSTEL, wall2: '#163a27', floor: '#5a3d2b', ceiling: '#10261a' });
     // balcão do bar à direita
     scene.add(box(0.8, 1.1, 4.5, '#7a3e2b', [3.2, 0.55, 0.3]), box(1.0, 0.06, 4.7, '#d9a066', [3.2, 1.13, 0.3]));
     scene.add(box(0.3, 1.6, 4.5, '#3a2a20', [4.3, 1.6, 0.3]));
@@ -507,7 +511,7 @@ Object.assign(SETS, {
     scene.add(cyl(0.02, 0.02, 1.4, '#999', [-1.2, 0.95, -2.6]), cyl(0.04, 0.03, 0.18, '#222', [-1.2, 1.7, -2.55], [0.6, 0, 0]));
     scene.add(box(0.5, 0.9, 0.45, '#1a1a1a', [-3.0, 0.7, -3.4]), box(0.5, 0.9, 0.45, '#1a1a1a', [0.6, 0.7, -3.4]));
     const neon = sign(params.placa || 'KARAOKÊ', 2.0, 0.5, { bg: '#1a0f24', fg: '#f72585' }); neon.position.set(-1.2, 2.72, -3.94); scene.add(neon);
-    scene.add(box(2, 0.45, 0.8, '#9d4edd', [-3.4, 0.22, 1.2], [0, Math.PI / 2, 0]), box(2, 0.6, 0.2, '#9d4edd', [-4.3, 0.6, 1.2], [0, Math.PI / 2, 0]));
+    scene.add(box(2, 0.45, 0.8, '#e9c46a', [-3.4, 0.22, 1.2], [0, Math.PI / 2, 0]), box(2, 0.6, 0.2, '#e9c46a', [-4.3, 0.6, 1.2], [0, Math.PI / 2, 0]));
     const bulbs = stringLights(scene, [-4.3, 2.8, -1], [4.3, 2.8, -1], 14, ['#f72585', '#4cc9f0', '#ffd166', '#b5e48c']);
     return { scene, update: (t) => {
       const k = (t * 0.35) % 1; barra.scale.x = 1 + k * 30; barra.position.x = -1.85 + k * 1.5;
@@ -532,7 +536,8 @@ Object.assign(SETS, {
     for (let z = 8; z > -38; z -= 5) for (const side of [-1, 1]) {
       const h = 4 + r() * 5, y = ground(0, z);
       const g = new THREE.Group();
-      g.add(box(5, h + 3, 4.6, cols[Math.floor(r() * cols.length)], [0, (h - 3) / 2, 0]));
+      const cor = cols[Math.floor(r() * cols.length)]; // sorteia sempre, para não mudar as outras casas
+      g.add(box(5, h + 3, 4.6, z === 8 && side === -1 ? VERDE_HOSTEL : cor, [0, (h - 3) / 2, 0])); // a casa do alto, à esquerda, é o hostel
       for (let i = 0; i < 2; i++) g.add(box(0.1, 1.2, 0.9, p.sun < 0.5 && r() > 0.4 ? '#ffd86b' : '#3a5a7a', [-side * 2.52, 1.4 + i * 2.2, 0], [0, 0, 0]));
       g.add(box(0.1, 2.0, 1.0, '#7a5230', [-side * 2.52, 1.0, 1.4]));
       g.position.set(side * 7.2, y, z);
