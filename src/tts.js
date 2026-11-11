@@ -6,17 +6,18 @@ import { execFileSync } from 'node:child_process';
 
 const CACHE = path.resolve(process.env.FABRICA_CACHE || 'cache', 'tts');
 
-function pcmToWav(pcm, out, rate = 24000) {
-  const raw = out + '.pcm';
+function pcmToWav(pcm, out, rate = 24000, isWav = false) {
+  const raw = out + (isWav ? '.in.wav' : '.pcm');
   fs.writeFileSync(raw, pcm);
-  execFileSync('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-f', 's16le', '-ar', String(rate), '-ac', '1', '-i', raw, '-af', 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse', out]);
+  const inArgs = isWav ? ['-i', raw] : ['-f', 's16le', '-ar', String(rate), '-ac', '1', '-i', raw];
+  execFileSync('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', ...inArgs, '-ac', '1', '-af', 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse', out]);
   fs.unlinkSync(raw);
 }
 
 async function gemini(text, voice, estilo) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new Error('GEMINI_API_KEY não definida no .env');
-  const model = process.env.TTS_MODEL || 'gemini-2.5-flash-preview-tts';
+  const model = process.env.TTS_MODEL || 'gemini-3.8-flash-tts';
   const prompt = `${estilo ? `Fale em português do Brasil, ${estilo}:` : 'Fale em português do Brasil:'} ${text}`;
   for (let tentativa = 1; tentativa <= 4; tentativa++) {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -32,8 +33,9 @@ async function gemini(text, voice, estilo) {
     const j = await r.json();
     const part = j.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
     if (!part) throw new Error('Gemini TTS sem áudio: ' + JSON.stringify(j).slice(0, 300));
-    const rate = Number((part.inlineData.mimeType.match(/rate=(\d+)/) || [])[1] || 24000);
-    return { pcm: Buffer.from(part.inlineData.data, 'base64'), rate };
+    const mime = part.inlineData.mimeType || '';
+    const rate = Number((mime.match(/rate=(\d+)/) || [])[1] || 24000);
+    return { pcm: Buffer.from(part.inlineData.data, 'base64'), rate, wav: /wav/i.test(mime) };
   }
   throw new Error('Gemini TTS: limite de requisições, tente mais tarde');
 }
@@ -49,8 +51,8 @@ export async function falar(text, voice, estilo, provider = process.env.TTS_PROV
     execFileSync('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', `sine=frequency=180:duration=${dur}`, '-af', 'volume=0.02', '-ar', '24000', '-ac', '1', out]);
     return out;
   }
-  const { pcm, rate } = await gemini(text, voice, estilo);
-  pcmToWav(pcm, out, rate);
+  const { pcm, rate, wav } = await gemini(text, voice, estilo);
+  pcmToWav(pcm, out, rate, wav);
   return out;
 }
 export const cacheKeyDir = CACHE;

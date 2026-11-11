@@ -71,11 +71,16 @@ Inclua também "resumo": uma frase descrevendo o que aconteceu (para continuidad
 async function chamarGemini(prompt) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new Error('GEMINI_API_KEY não definida');
-  const model = process.env.SCRIPT_MODEL || 'gemini-2.5-pro';
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+  const model = process.env.SCRIPT_MODEL || 'gemini-3.5-flash';
+  let r;
+  for (let t = 1; t <= 5; t++) {
+  r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
     body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: 1.0 } }),
   });
+    if (r.status !== 429 && r.status < 500) break;
+    await new Promise((s) => setTimeout(s, 15000 * t));
+  }
   if (!r.ok) throw new Error(`Gemini ${r.status}: ${(await r.text()).slice(0, 300)}`);
   const j = await r.json();
   return j.candidates[0].content.parts.map((p) => p.text || '').join('');
