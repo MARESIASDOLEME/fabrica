@@ -1,5 +1,5 @@
 // Roteirista: gera o episódio (JSON) com um LLM e valida contra o catálogo
-import { CENARIOS, PARAMS, POSES, GESTOS, VISUAL, VOZES } from './catalog.js';
+import { CENARIOS, PARAMS, POSES, GESTOS, VISUAL, VOZES, TRILHAS, SFX } from './catalog.js';
 
 const EXEMPLO = {
   titulo: 'Primeira noite no hostel',
@@ -42,7 +42,14 @@ ${JSON.stringify(canal.personagens_fixos || {}, null, 1)}
 - "texto_topo": frase curta começando com "POV:" que aparece no topo do vídeo na primeira cena.
 ${(canal.regras_extras || []).map((r) => '- ' + r).join('\n')}
 
-# Recursos visuais disponíveis (use SOMENTE estes)
+${canal.formato === 'suspense_rpg' ? `# Formato suspense com escolha de RPG (obrigatório neste canal)
+- Duração alvo 45 a 90 s (360 a 720 caracteres de fala), 8 a 18 falas, 2 a 5 cenas. Ignore os limites de duração acima.
+- Suspense > surpresa: o público sabe do perigo antes do protagonista. Cada cena muda de estado (seguro→perigo). Um respiro de humor logo antes do pico.
+- Para cenas escuras use params.horario "apagao" (cidade sem luz, só a lanterna do celular).
+- Cada cena tem "trilha": um de ${JSON.stringify(TRILHAS)}; e "sfx": [{t, tipo}] com tipo em ${JSON.stringify(SFX)}. No máximo 1 efeito a cada 3 s; "riser" nos últimos 5 s antes da escolha; "impacto_grave" no corte final.
+- Termina numa encruzilhada, cortando antes da decisão. Inclua "escolha": {"pergunta", "opcoes":[{"rotulo","desfecho"}, {"rotulo","desfecho"}], "pista_justa", "desfecho_apocalipse"}. Exatamente uma opção tem desfecho "apocalipse" e a outra "continua"; varie a posição. A opção apocalíptica é a mais tentadora; a que continua tem uma pista justa no episódio. Rótulos com até 4 palavras.
+- Continue SEMPRE pelo caminho "continua" do episódio anterior; se o público tiver escolhido o apocalipse, abra mostrando-o em 3 s e volte: "…ou foi o que você imaginou".
+` : ''}# Recursos visuais disponíveis (use SOMENTE estes)
 Cenários (coordenadas em metros; y é a altura; a câmera fica a 1.6 de altura):
 ${Object.entries(CENARIOS).map(([k, v]) => `- ${k}: ${v}`).join('\n')}
 Params de cenário: ${JSON.stringify(PARAMS)}
@@ -151,6 +158,8 @@ export function validar(ep, canal) {
     c.camera.forEach((k) => { if (typeof k.olhar === 'string' && !c.elenco.find((e) => e.id === k.olhar)) k.olhar = [0, 1.6, -5]; });
     c.maos = (c.maos || [{ t: 0, pose: 'repouso' }]).map((m) => ({ t: clamp01(m.t), pose: POSES.includes(m.pose) ? m.pose : 'repouso' })).sort((a, b) => a.t - b.t);
     c.tremor = (c.tremor || []).map((s) => ({ t0: clamp01(s.t0), t1: clamp01(s.t1), amp: Math.min(0.06, Math.max(0, +s.amp || 0.02)) }));
+    if (c.trilha && !TRILHAS.includes(c.trilha)) { avisos.push(`cena ${i + 1}: trilha "${c.trilha}" não existe → removida`); delete c.trilha; }
+    c.sfx = (c.sfx || []).filter((x) => SFX.includes(x.tipo)).map((x) => ({ t: clamp01(x.t), tipo: x.tipo }));
     c.falas = (c.falas || []).filter((f) => {
       if (!f.texto || !f.texto.trim()) return false;
       if (f.quem !== 'voce' && !ep.personagens[f.quem]) { avisos.push(`cena ${i + 1}: fala de "${f.quem}" sem ficha → removida`); return false; }
@@ -160,8 +169,14 @@ export function validar(ep, canal) {
   });
   if (!ep.cenas.some((c) => c.falas.length)) throw new Error('episódio sem falas');
   const est = totalChars / 8;
-  if (est > 75) throw new Error(`episódio longo demais (~${est.toFixed(0)} s)`);
+  const maxS = canal.formato === 'suspense_rpg' ? 95 : 75;
+  if (est > maxS) throw new Error(`episódio longo demais (~${est.toFixed(0)} s)`);
   if (est < 15) throw new Error(`episódio curto demais (~${est.toFixed(0)} s)`);
+  if (ep.escolha) {
+    const ops = Array.isArray(ep.escolha.opcoes) ? ep.escolha.opcoes.slice(0, 2) : [];
+    if (ops.length !== 2 || ops.filter((o) => o.desfecho === 'apocalipse').length !== 1) { avisos.push('escolha inválida (precisa de 2 opções, 1 apocalipse) → removida'); delete ep.escolha; }
+    else ep.escolha.opcoes = ops.map((o, k) => ({ letra: 'AB'[k], rotulo: String(o.rotulo || '').slice(0, 28), desfecho: o.desfecho === 'apocalipse' ? 'apocalipse' : 'continua' }));
+  }
   ep.duracao_estimada = Math.round(est);
   return { episodio: ep, avisos };
 }

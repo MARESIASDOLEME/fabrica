@@ -6,7 +6,7 @@ export const CENARIOS = {
   lapa: 'Rua da Lapa (noite por padrão): casarões coloridos nos dois lados (x=±10), varal de lâmpadas, arcos brancos ao fundo (z=-62). Câmera anda pelo meio da rua (x=0) no sentido -z.',
   desembarque: 'Saguão de desembarque: placa central em z=-6 (params.placa, padrão DESEMBARQUE), esteira de bagagem em x=-3, z=-3, cadeiras em z=2..5, janelões no fundo (z=-12) com vista do Rio, placa SAÍDA à direita. Câmera começa em z≈8.',
 };
-export const PARAMS = { horario: ['dia', 'tarde', 'noite'], placa: 'texto curto', mural: 'texto curto', parede: 'cor hex', balcao: 'cor hex', quiosqueX: 'número' };
+export const PARAMS = { horario: ['dia', 'tarde', 'noite', 'apagao'], placa: 'texto curto', mural: 'texto curto', parede: 'cor hex', balcao: 'cor hex', quiosqueX: 'número' };
 export const POSES = ['repouso', 'escondidas', 'empurrar', 'celular', 'acenar', 'mala', 'apontar'];
 export const GESTOS = ['acenar', 'apontar', 'bracos', 'falar', 'pensar'];
 export const VISUAL = {
@@ -24,3 +24,7 @@ export const VOZES = {
   Iapetus: 'masculina, clara', Umbriel: 'masculina, tranquila', Algieba: 'masculina, suave', Achird: 'masculina, amigável', Sadachbia: 'masculina, viva',
   Zephyr: 'feminina, brilhante', Despina: 'feminina, suave', Erinome: 'feminina, clara', Laomedeia: 'feminina, animada', Vindemiatrix: 'feminina, gentil', Sulafat: 'feminina, calorosa',
 };
+
+// Suspense: clima de trilha por cena e efeitos sonoros (sintetizados, sem arquivo e sem licença de terceiros)
+export const TRILHAS = ['silencio', 'tensao_baixa', 'tensao_crescente', 'perseguicao', 'revelacao', 'alivio'];
+export const SFX = ['batida_coracao', 'porta_rangendo', 'passos', 'estalo', 'trovao', 'respiracao', 'sussurro', 'impacto_grave', 'riser', 'batidas_porta', 'relogio', 'estatica'];

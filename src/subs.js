@@ -20,7 +20,7 @@ function pedacos(texto, max = 30) {
 }
 
 // linhas: [{start,end,text,color}], topo: {text, start, end}
-export function gerarASS({ linhas, topo, saida, W = 1080, H = 1920 }) {
+export function gerarASS({ linhas, topo, escolha, saida, W = 1080, H = 1920 }) {
   const head = `[Script Info]
 ScriptType: v4.00+
 PlayResX: ${W}
@@ -31,6 +31,8 @@ ScaledBorderAndShadow: yes
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Fala,Fredoka,80,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,-1,0,0,0,100,100,0,0,1,7,0,2,90,90,560,1
+Style: Escolha,Fredoka,74,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8000000,-1,0,0,0,100,100,0,0,3,26,0,5,90,90,0,1
+Style: Chamada,Fredoka,58,&H004BB8F2,&H00FFFFFF,&H00141414,&H00000000,-1,0,0,0,100,100,0,0,1,6,0,2,90,90,300,1
 Style: Topo,Fredoka,64,&H00141414,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,120,120,230,1
 
 [Events]
@@ -38,6 +40,16 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 `;
   const ev = [];
   if (topo && topo.text) ev.push(`Dialogue: 1,${tc(topo.start)},${tc(topo.end)},Topo,,0,0,0,,${esc(topo.text)}`);
+  if (escolha && escolha.opcoes) {
+    // cartão final A/B: tela escurece e as duas opções aparecem centralizadas
+    ev.push(`Dialogue: 2,${tc(escolha.start)},${tc(escolha.end)},Escolha,,0,0,0,,{\\an5\\pos(${W / 2},${H / 2})\\p1\\bord0\\1c&H000000&\\1a&H40&\\fad(300,0)}m ${-W / 2} ${-H / 2} l ${W / 2} ${-H / 2} ${W / 2} ${H / 2} ${-W / 2} ${H / 2}{\\p0}`);
+    const y0 = H / 2 - 170;
+    escolha.opcoes.slice(0, 2).forEach((o, i) => {
+      const cor = i === 0 ? '&H5A80FF&' : '&HC9DC7F&';
+      ev.push(`Dialogue: 3,${tc(escolha.start + 0.3 + i * 0.35)},${tc(escolha.end)},Escolha,,0,0,0,,{\\an5\\pos(${W / 2},${y0 + i * 300})\\3c${cor}\\fad(200,0)}${esc(o.letra || 'AB'[i])} — ${esc(o.rotulo || '')}`);
+    });
+    ev.push(`Dialogue: 3,${tc(escolha.start + 1.0)},${tc(escolha.end)},Chamada,,0,0,0,,{\\fad(200,0)}COMENTA A OU B · A MAIS VOTADA DECIDE`);
+  }
   for (const l of linhas) {
     const ps = pedacos(l.text);
     const total = ps.reduce((a, p) => a + p.length, 0);

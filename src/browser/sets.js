@@ -6,6 +6,8 @@ export const TIMES = {
   dia:    { skyTop: '#5fb4ff', skyBot: '#cdeeff', sun: 1.15, amb: 0.95, sea: '#1f8fb3', fog: '#cdeeff' },
   tarde:  { skyTop: '#ff8a5c', skyBot: '#ffd59a', sun: 1.0, amb: 0.85, sea: '#2f7f9a', fog: '#ffd59a' },
   noite:  { skyTop: '#0e1640', skyBot: '#33416e', sun: 0.35, amb: 0.55, sea: '#13314a', fog: '#33416e' },
+  // apagão: cidade sem luz; o escurecimento e a lanterna ficam no pós-processamento (engine.js)
+  apagao: { skyTop: '#05070d', skyBot: '#10141f', sun: 0.12, amb: 0.3, sea: '#070b12', fog: '#10141f', apagao: true },
 };
 
 function skyTexture(p) {
@@ -36,7 +38,7 @@ export function rioView(p, w = 1024, h = 512) {
       g.fillStyle = ['#f3e9d2', '#e8c07a', '#d98e6b', '#c7d6e0', '#ffffff'][i % 5];
       g.fillRect(x, h * 0.8 - bh, bw, bh + h * 0.2);
       g.strokeRect(x, h * 0.8 - bh, bw, bh + h * 0.2);
-      if (p.sun < 0.5) { g.fillStyle = '#ffd86b'; for (let k = 0; k < 6; k++) g.fillRect(x + 6 + (k % 2) * 14, h * 0.8 - bh + 10 + Math.floor(k / 2) * 22, 8, 10); }
+      if (p.sun < 0.5 && !p.apagao) { g.fillStyle = '#ffd86b'; for (let k = 0; k < 6; k++) g.fillRect(x + 6 + (k % 2) * 14, h * 0.8 - bh + 10 + Math.floor(k / 2) * 22, 8, 10); }
     }
   });
 }

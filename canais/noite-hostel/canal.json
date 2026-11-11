@@ -1,0 +1,76 @@
+{
+  "nome": "Última noite no hostel",
+  "nicho": "Suspense POV com escolha de RPG",
+  "duracao_alvo": "45 a 90",
+  "biblia": "Série contínua de suspense. Às 3h da manhã o mar de Copacabana para de fazer barulho e hóspedes começam a sumir. O protagonista, um mochileiro, tenta sobreviver à noite dentro do hostel com Lucas (colega de quarto) e Bia (a recepcionista, que sabe mais do que diz). Cada episódio termina numa escolha A/B: uma leva ao apocalipse, a outra continua a história.",
+  "protagonista": {
+    "descricao": "Mochileiro brasileiro, 20 e poucos anos, assustado mas teimoso",
+    "voz": "Achird",
+    "estilo_voz": "jovem, tenso, falando baixo",
+    "cor_legenda": "#ffffff",
+    "maos": {
+      "skin": "#c98e62",
+      "sleeve": "#2f5fa8",
+      "phoneText": "SEM SINAL",
+      "bagColor": "#d9483b"
+    }
+  },
+  "personagens_fixos": {
+    "bia": {
+      "nome": "Bia",
+      "voz": "Kore",
+      "estilo_voz": "séria, voz baixa e firme",
+      "cor_legenda": "#ffd166",
+      "visual": {
+        "skin": "morena",
+        "shirt": "#e76f51",
+        "hair": "black",
+        "hairColor": "#2b1d14",
+        "outfit": "uniforme"
+      }
+    },
+    "lucas": {
+      "nome": "Lucas",
+      "voz": "Puck",
+      "estilo_voz": "argentino falando portunhol, nervoso, sussurrando",
+      "cor_legenda": "#b5e48c",
+      "visual": {
+        "skin": "clara",
+        "shirt": "#3a86ff",
+        "hair": "longo",
+        "hairColor": "#c48a3f",
+        "outfit": "regata"
+      }
+    },
+    "ze": {
+      "nome": "Seu Zé",
+      "voz": "Charon",
+      "estilo_voz": "aflito, gritando abafado atrás de uma porta",
+      "cor_legenda": "#8ecae6",
+      "visual": {
+        "skin": "escura",
+        "shirt": "#ffffff",
+        "pants": "#2a9d8f",
+        "hair": "careca",
+        "hat": "chapeu",
+        "hatColor": "#e8d28a",
+        "height": 0.97
+      }
+    }
+  },
+  "regras_extras": [
+    "A placa do hostel é sempre \"HOSTEL\".",
+    "Suspense sem violência gráfica."
+  ],
+  "estilo": {
+    "fisheye": 1.15,
+    "fov": 92
+  },
+  "musicas_dir": "musicas",
+  "rodape_legenda": "Conteúdo animado criado com IA. Ficção.",
+  "agenda": {
+    "ativo": false,
+    "por_dia": 1
+  },
+  "formato": "suspense_rpg"
+}

@@ -11,7 +11,7 @@ const POST_FS = `
 precision highp float;
 varying vec2 vUv;
 uniform sampler2D tColor; uniform sampler2D tNormal; uniform sampler2D tDepth;
-uniform vec2 res; uniform float near; uniform float far; uniform float k; uniform float blink; uniform float ink;
+uniform vec2 res; uniform float near; uniform float far; uniform float k; uniform float blink; uniform float ink; uniform float dark; uniform float flick;
 float lin(float d){ float z = d*2.0-1.0; return (2.0*near*far)/(far+near - z*(far-near)); }
 vec2 fish(vec2 uv){
   float aspect = res.x/res.y;
@@ -45,6 +45,18 @@ void main(){
   col = mix(col, vec3(0.08,0.07,0.07), line);
   // vinheta suave
   vec2 v = vUv-0.5; col *= 1.0 - dot(v,v)*0.35;
+  // apagão: tudo escuro e frio, luz só num cone central (lanterna do celular) que cai com a distância
+  if (dark > 0.0) {
+    vec2 c = v*vec2(0.9,1.0);
+    float cone = smoothstep(0.45, 0.04, length(c - vec2(0.0,-0.02)));
+    float tela = smoothstep(0.30, 0.0, length(c - vec2(0.0,-0.42)))*0.55; // brilho do celular nas mãos
+    float dist = clamp(3.2/max(dc,0.6), 0.0, 1.0);
+    float teto = 1.0 - 0.65*smoothstep(0.08, 0.42, v.y); // o teto fica no escuro
+    float luz = (0.08 + 1.15*cone*dist + tela)*teto;
+    float lum = dot(col, vec3(0.299,0.587,0.114));
+    vec3 frio = mix(vec3(lum)*vec3(0.75,0.85,1.1), col, 0.55);
+    col = mix(col, frio*luz*flick, dark);
+  }
   // piscar (pálpebras)
   if (blink > 0.0) {
     vec2 e = vUv-0.5; e.x *= 0.7;
@@ -74,7 +86,7 @@ export function createEngine(canvas, TL) {
     uniforms: {
       tColor: { value: rtColor.texture }, tNormal: { value: rtNormal.texture }, tDepth: { value: depthTex },
       res: { value: new THREE.Vector2(W * SS, H * SS) }, near: { value: camera.near }, far: { value: camera.far },
-      k: { value: TL.fisheye ?? 1.1 }, blink: { value: 0 }, ink: { value: 1.6 * SS * (W / 1080) },
+      k: { value: TL.fisheye ?? 1.1 }, blink: { value: 0 }, dark: { value: 0 }, flick: { value: 1 }, ink: { value: 1.6 * SS * (W / 1080) },
     },
     depthTest: false, depthWrite: false,
   }));
@@ -196,6 +208,11 @@ export function createEngine(canvas, TL) {
     const next = scenes[si + 1];
     if (next && next.transitionIn === 'piscar' && sc.end - time < 0.18) blink = Math.max(blink, 1 - (sc.end - time) / 0.18);
     post.material.uniforms.blink.value = blink;
+    const apagao = (sc.params && sc.params.horario) === 'apagao';
+    post.material.uniforms.dark.value = apagao ? 1 : 0;
+    // tremida da lanterna: leve, com falhas raras e determinísticas
+    const fl = Math.sin(time * 13.0) * Math.sin(time * 7.3 + 1.7);
+    post.material.uniforms.flick.value = apagao ? (fl > 0.97 ? 0.35 : 0.94 + 0.06 * Math.sin(time * 9.1)) : 1;
 
     renderer.setRenderTarget(rtColor);
     renderer.render(sc.scene, camera);

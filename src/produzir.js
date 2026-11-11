@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { falar } from './tts.js';
-import { analisar, mixar, AMBIENTE_POR_CENARIO } from './audio.js';
+import { analisar, mixar, fontesDeSom, AMBIENTE_POR_CENARIO } from './audio.js';
 import { gerarASS } from './subs.js';
 import { renderVideo } from './render.js';
 
@@ -30,7 +30,8 @@ export async function montarTimeline(ep, canal, { log = console.log } = {}) {
       lines.push({ start: t, end: t + dur, speaker: f.quem, text: f.texto, color: v.cor, env, wav });
       t += dur + 0.22;
     }
-    t += c.pausa_final ?? (i === ep.cenas.length - 1 ? 0.9 : 0.4);
+    const ultima = i === ep.cenas.length - 1;
+    t += c.pausa_final ?? (ultima ? (ep.escolha ? 4.5 : 0.9) : 0.4);
     if (t - start < 2.5) t = start + 2.5;
     scenes.push({
       start, end: t, set: c.cenario, params: c.params, transitionIn: c.transicao,
@@ -41,7 +42,7 @@ export async function montarTimeline(ep, canal, { log = console.log } = {}) {
         spec: ep.personagens[e.id].visual,
       })),
       camera: c.camera.map((k) => ({ t: k.t, pos: k.pos, look: k.olhar })),
-      hands: c.maos, shake: c.tremor,
+      hands: c.maos, shake: c.tremor, trilha: c.trilha, sfx: c.sfx || [],
     });
   }
   const res = (process.env.RENDER_RES || '720x1280').split('x').map(Number);
@@ -72,7 +73,8 @@ export async function produzir(ep, canal, { pastaSaida, log = console.log } = {}
   const musica = musicas.length ? path.join(canal.musicas_dir, musicas[TL.seed % musicas.length]) : null;
   mixar({
     falas: TL.lines.map((l) => ({ wav: l.wav, start: l.start })),
-    cenas: TL.scenes.map((s) => ({ start: s.start, end: s.end, ambiente: AMBIENTE_POR_CENARIO[s.set] })),
+    cenas: TL.scenes.map((s) => ({ start: s.start, end: s.end, ambiente: AMBIENTE_POR_CENARIO[s.set], silencio: s.trilha === 'silencio' })),
+    sons: fontesDeSom(TL.scenes),
     duracao: TL.duration, musica, saida: wavMix,
   });
 
@@ -80,6 +82,7 @@ export async function produzir(ep, canal, { pastaSaida, log = console.log } = {}
   const ass = gerarASS({
     linhas: TL.lines, saida: path.join(dir, 'legendas.ass'),
     topo: ep.texto_topo ? { text: ep.texto_topo, start: 0, end: TL.scenes[0].end } : null,
+    escolha: ep.escolha ? { ...ep.escolha, start: Math.max(0, TL.duration - 4.3), end: TL.duration } : null,
   });
 
   log(`4/4 render (${TL.duration.toFixed(1)} s, ${Math.ceil(TL.duration * TL.fps)} quadros)`);
