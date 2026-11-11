@@ -23,7 +23,11 @@ export function makePerson(spec = {}) {
   const torso = cap(0.21, 0.42, shirt, [0, 1.12, 0]);
   torso.scale.set(1, 1, 0.75);
   body.add(torso);
-  if (spec.outfit === 'uniforme') body.add(box(0.2, 0.06, 0.02, '#fff', [0.1, 1.28, 0.16]));
+  if (spec.outfit === 'uniforme') {
+    // emblema: bola colorida centralizada no peito (spec.emblema = cor hex); sem ele, o crachá branco de antes
+    if (spec.emblema) body.add(cyl(0.075, 0.075, 0.02, spec.emblema, [0, 1.36, 0.2], [Math.PI / 2, 0, 0], 20));
+    else body.add(box(0.2, 0.06, 0.02, '#fff', [0.1, 1.28, 0.16]));
+  }
   if (spec.outfit === 'regata') { torso.material = mat(shirt); }
   // braços (pivô no ombro)
   const mkArm = (side) => {

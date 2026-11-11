@@ -15,7 +15,7 @@ export const VISUAL = {
   hat: ['bone', 'chapeu', null],
   prop: ['prancha', 'bandeja', null],
   outfit: ['uniforme', 'regata', null],
-  campos: 'shirt, pants, hairColor, hatColor (hex); glasses (bool); height (0.85-1.1)',
+  campos: 'shirt, pants, hairColor, hatColor, emblema (hex; emblema = bola no peito do uniforme); glasses (bool); height (0.85-1.1)',
 };
 // Vozes pré-definidas do Gemini TTS (nome: característica)
 export const VOZES = {
