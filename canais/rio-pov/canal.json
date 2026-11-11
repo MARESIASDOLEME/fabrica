@@ -23,10 +23,11 @@
       "cor_legenda": "#ffd166",
       "visual": {
         "skin": "morena",
-        "shirt": "#e76f51",
+        "shirt": "#1f8a3c",
         "hair": "black",
         "hairColor": "#2b1d14",
-        "outfit": "uniforme"
+        "outfit": "uniforme",
+        "emblema": "#ffd400"
       }
     },
     "ze": {
@@ -61,7 +62,13 @@
   },
   "regras_extras": [
     "Bia é a recepcionista do hostel; Seu Zé tem o quiosque na orla; Lucas é o argentino do beliche de cima.",
-    "A placa do hostel é sempre \"HOSTEL\" (sem nome de marca)."
+    "A placa do hostel é sempre \"HOSTEL\" (sem nome de marca).",
+    "Funcionários do hostel usam sempre o uniforme verde com a bola amarela no peito (outfit \"uniforme\", shirt \"#1f8a3c\", emblema \"#ffd400\").",
+    "O hostel fica no alto de uma ladeira; descendo, chega-se à praia (cenários ladeira e praia). Dentro do hostel: recepcao, quarto, refeitorio (com o papagaio na gaiola), bar (karaokê, à noite) e terraco (fumódromo na torre, onde mora um gato branco).",
+    "Nos cenários do hostel não defina params.parede nem params.balcao: as cores do hostel (verde-escuro com amarelo) já vêm certas.",
+    "Nunca diga o nome do hostel, da rua, da praia ao pé da ladeira nem do morro. Diga \"o hostel\", \"a ladeira\", \"a praia\", \"lá embaixo\".",
+    "Rolês dos hóspedes: roda de samba embaixo da pedra (cenário roda), Lapa à noite e trilha da Pedra da Gávea (cenário gavea).",
+    "Bebida e cigarro só como ambiente de adultos: sem close no consumo, sem glamour, sem embriaguez como piada principal. Na escalada da Gávea, sempre corda e equipamento; ninguém se arrisca sem proteção."
   ],
   "estilo": {
     "fisheye": 1.1,
