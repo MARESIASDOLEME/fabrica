@@ -1,0 +1,33 @@
+{
+  "nome": "O Que Ele Fez?",
+  "nicho": "Histórias da Bíblia em POV de suspense",
+  "formato": "suspense_rpg",
+  "duracao_alvo": "45 a 90",
+  "biblia": "Série cronológica do Velho Testamento em POV: o espectador É o personagem bíblico e vive a passagem na pele dele. Cada episódio adapta um trecho na ordem do texto (temporada 1: Gênesis 2 a 4, de Adão a Caim). Suspense vem do que o público sabe e o personagem não. O episódio corta no instante da decisão e o público tenta adivinhar O QUE O PERSONAGEM FEZ DE FATO segundo o texto bíblico. O episódio seguinte abre revelando a resposta com a referência (ex.: 'Gênesis 3:6') e segue a história. Fidelidade: nada que contradiga o texto; falas-chave próximas da Bíblia Livre (BLIVRE); o resto é encenação plausível, sem inventar fatos teológicos. Tom sério, misterioso, respeitoso; nunca zombar da fé.",
+  "protagonista": {
+    "descricao": "Muda por temporada/episódio: é o personagem bíblico central do trecho (ep. 1–2 Adão; ep. 3 Caim)",
+    "voz": "Orus",
+    "estilo_voz": "homem jovem, voz grave e contida",
+    "cor_legenda": "#ffffff",
+    "maos": { "skin": "#b9825a", "sleeve": "#c9b48a" }
+  },
+  "personagens_fixos": {
+    "eva": { "nome": "Eva", "voz": "Despina", "estilo_voz": "jovem, suave, curiosa", "cor_legenda": "#ffb4a2", "visual": { "skin": "media", "hair": "longo", "hairColor": "#3b2414", "shirt": "#c9b48a", "pants": "#c9b48a" } },
+    "serpente": { "nome": "Serpente", "voz": "Enceladus", "estilo_voz": "sussurrada, sedutora, sem pressa", "cor_legenda": "#9be564", "visual": {} },
+    "deus": { "nome": "Voz", "voz": "Iapetus", "estilo_voz": "grave, calma, vinda de toda parte; sem eco exagerado", "cor_legenda": "#ffe8a3", "visual": {} },
+    "abel": { "nome": "Abel", "voz": "Achird", "estilo_voz": "rapaz gentil e alegre", "cor_legenda": "#a0c4ff", "visual": { "skin": "media", "hair": "curto", "hairColor": "#3b2414", "shirt": "#e8e2d0", "pants": "#8a6a45", "height": 0.95 } }
+  },
+  "regras_extras": [
+    "Mecânica 'O que ele fez?': a escolha A/B pergunta o que o personagem fez. A opção que o TEXTO BÍBLICO registra tem desfecho 'continua'; a outra (tentadora, plausível) tem desfecho 'apocalipse'. A posição da certa é sorteada. 'pista_justa' aponta a pista dentro do episódio OU o versículo. 'desfecho_apocalipse' é o texto mostrado a quem errou: 'Não foi isso…' e um gancho para o próximo episódio — nada catastrófico inventado sobre a Bíblia.",
+    "Na escolha, use 'chamada': 'O QUE ELE FEZ? · COMENTA A OU B' (ou 'ELA' conforme o personagem) e 'mostrar_pergunta': true.",
+    "O episódio seguinte abre revelando a resposta em 1 fala + referência bíblica; não use '…ou foi o que você imaginou'.",
+    "Deus NUNCA tem corpo nem rosto: personagem 'deus' só fala (voz) e aparece como luz (eden params.presenca). A serpente é a do cenário eden (sem elenco); só fala.",
+    "Adão e Eva vestem túnicas simples cor de palha (nunca nudez). Sem sangue nem violência mostrada: atos violentos ficam fora de quadro (corte/piscar) e são só sugeridos.",
+    "Use só os cenários 'eden' e 'campo' nesta temporada.",
+    "legenda_post termina com a referência e o crédito: 'Texto: Bíblia Livre (BLIVRE), CC BY 3.0 BR.'"
+  ],
+  "estilo": { "fisheye": 1.05, "fov": 90 },
+  "musicas_dir": "musicas",
+  "rodape_legenda": "Conteúdo animado criado com IA. Texto bíblico: Bíblia Livre (BLIVRE), CC BY 3.0 BR.",
+  "agenda": { "ativo": false, "por_dia": 1 }
+}

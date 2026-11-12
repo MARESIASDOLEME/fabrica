@@ -681,3 +681,93 @@ Object.assign(SET_CATALOG, {
   roda: 'Roda de samba embaixo da pedra (noite): chão de pedra; à esquerda a grande rocha escura com a multidão em degraus; mesa dos sambistas em [0, -4] cercada de gente; casario colonial à direita (x=8) com mural; luz âmbar; ao fundo (z -12 a -28) o corredor de barracas de drinks com isopores de LED e fumaça; no fim (z≈-36) a esquina do baile funk com luzes roxas, vermelhas e azuis. Câmera em [0, 1.6, 3] ou andando no sentido -z por x≈1.5.',
   gavea: 'Topo da trilha da Pedra da Gávea: laje de rocha (x de -9 a 9, z de -8 a 6), mato nas laterais, paredão de escalada à direita (x≈6.5) com chapeletas e corda vermelha, beirada em z≈-8 com o mar e a costa muito abaixo. Câmera em z≈4 olhando -z.',
 });
+
+// ---------- Canal bíblico: cenários de Gênesis ----------
+function arvore(pos, { tronco = '#7a5432', copa = '#3f8f4a', s = 1, frutos = null, n = 14, r = Math.random } = {}) {
+  const g = new THREE.Group();
+  g.add(cyl(0.35, 0.5, 3.2, tronco, [0, 1.6, 0]));
+  for (let i = 0; i < 3; i++) g.add(cyl(0.12, 0.18, 1.8, tronco, [Math.cos(i * 2.1) * 0.6, 3.2, Math.sin(i * 2.1) * 0.6], [Math.sin(i * 2.1) * 0.6, 0, -Math.cos(i * 2.1) * 0.6]));
+  for (let i = 0; i < 7; i++) g.add(sph(1.3 + r() * 0.5, copa, [(r() - 0.5) * 2.6, 3.9 + r() * 1.2, (r() - 0.5) * 2.6]));
+  if (frutos) for (let i = 0; i < n; i++) { const a = r() * 6.28, rr = 1.2 + r() * 0.9; g.add(sph(0.16, frutos, [Math.cos(a) * rr, 3.2 + r() * 1.6, Math.sin(a) * rr + 0.6])); }
+  g.position.set(...pos); g.scale.setScalar(s);
+  return g;
+}
+function flor(pos, c) { const g = new THREE.Group(); g.add(cyl(0.02, 0.02, 0.3, '#3f8f4a', [0, 0.15, 0])); g.add(sph(0.09, c, [0, 0.32, 0])); g.position.set(...pos); return g; }
+function serpente(pos) {
+  // enrolada no galho baixo da árvore, cabeça voltada para a câmera
+  const g = new THREE.Group();
+  for (let i = 0; i < 26; i++) { const a = i * 0.55, y = i * 0.07; g.add(sph(0.16 - i * 0.002, i % 3 ? '#4f9a3a' : '#e0c34a', [Math.cos(a) * 0.78, 0.6 + y, Math.sin(a) * 0.78])); }
+  const cab = new THREE.Group(); cab.position.set(0.2, 2.6, 0.95); g.add(cab);
+  cab.add(sph(0.16, '#4f9a3a', [0, 0, 0], [1, 0.8, 1.4]));
+  cab.add(sph(0.04, '#f2d14b', [-0.07, 0.07, 0.17]), sph(0.04, '#f2d14b', [0.07, 0.07, 0.17]));
+  cab.add(sph(0.018, '#111111', [-0.07, 0.08, 0.205]), sph(0.018, '#111111', [0.07, 0.08, 0.205]));
+  g.position.set(...pos);
+  return { g, cab };
+}
+function chao(scene, cor, w = 120, d = 120) { scene.add(box(w, 0.2, d, cor, [0, -0.1, 0])); }
+
+Object.assign(SETS, {
+  eden(params, r) {
+    const p = TIMES[params.horario] || TIMES.dia;
+    const scene = base(p);
+    chao(scene, p.sun < 0.5 ? '#2d5a3a' : '#5aa85a');
+    // rio à direita, correndo no eixo z
+    const rio = box(3.2, 0.05, 120, p.sea, [6, 0.01, 0]); scene.add(rio);
+    for (let i = 0; i < 20; i++) scene.add(sph(0.35 + r() * 0.3, '#9a958c', [4.2 + (i % 2) * 3.6, 0, -40 + i * 4], [1, 0.4, 1]));
+    // árvore do conhecimento no centro, com frutos vermelhos
+    scene.add(arvore([0, 0, -5], { frutos: '#d63a2f', n: 18, s: 1.15, r }));
+    let cab = null;
+    if (params.serpente !== false && params.serpente !== 'nao') { const s = serpente([0, 0, -5]); scene.add(s.g); cab = s.cab; }
+    // árvore da vida mais ao fundo, com frutos dourados que brilham
+    scene.add(arvore([-6, 0, -11], { frutos: '#ffd447', n: 16, copa: '#2f7f5a', s: 1.3, r }));
+    const brilho = new THREE.PointLight('#ffe9a0', 1.4, 12); brilho.position.set(-6, 4, -10); scene.add(brilho);
+    // mata em volta, palmeiras e flores
+    for (let i = 0; i < 22; i++) { const a = r() * 6.28, d = 12 + r() * 18; scene.add(arvore([Math.cos(a) * d, 0, Math.sin(a) * d - 4], { s: 0.8 + r() * 0.6, copa: ['#3f8f4a', '#2f7f5a', '#4fa060'][i % 3], r })); }
+    for (let i = 0; i < 6; i++) scene.add(palm([-10 + r() * 3, 0, -2 + i * 2.5], 0.9, r).g);
+    const cores = ['#ff6fa1', '#ffd166', '#ffffff', '#c77dff', '#ff8c42'];
+    for (let i = 0; i < 70; i++) scene.add(flor([(r() - 0.5) * 16, 0, -10 + r() * 16], cores[i % 5]));
+    // portão leste (Gn 3:24): luz flamejante em z≈9 quando params.portao
+    let espada = null;
+    if (params.portao) {
+      espada = new THREE.Group(); espada.position.set(0, 0, 9); scene.add(espada);
+      espada.add(box(0.12, 3.2, 0.12, '#ff9f1c', [0, 1.9, 0]));
+      espada.add(sph(0.9, '#ffd166', [0, 2.2, 0], [0.6, 2.4, 0.6]));
+      const l = new THREE.PointLight('#ff8c1a', 3, 14); l.position.set(0, 2.2, 8.5); scene.add(l);
+      for (const x of [-1.6, 1.6]) scene.add(sph(0.7, '#fff3c4', [x, 2.4, 9.2], [0.8, 1.8, 0.4]));
+    }
+    // luz da Presença: coluna suave de luz atrás das árvores (nunca um rosto)
+    if (params.presenca) { const pl = new THREE.PointLight('#fff7d6', 2.2, 18); pl.position.set(3, 3, -8); scene.add(pl); scene.add(sph(1.2, '#fff7d6', [3, 3, -9], [0.8, 2.5, 0.8])); }
+    mountains(scene, p, -160);
+    return { scene, update: (t) => {
+      if (cab) { cab.rotation.y = Math.sin(t * 1.3) * 0.35; cab.position.y = 2.6 + Math.sin(t * 2.1) * 0.04; }
+      if (espada) espada.rotation.y = t * 2.4;
+    } };
+  },
+  campo(params, r) {
+    const p = TIMES[params.horario] || TIMES.tarde;
+    const scene = base(p);
+    chao(scene, p.sun < 0.5 ? '#5a4a33' : '#b89a62');
+    // terra lavrada à esquerda (de Caim)
+    for (let i = 0; i < 9; i++) scene.add(box(9, 0.12, 0.45, i % 2 ? '#7a5532' : '#8f6640', [-8, 0.04, -6 + i * 1.1]));
+    for (let i = 0; i < 24; i++) scene.add(cyl(0.03, 0.03, 0.5, '#d9b24a', [-11 + (i % 8) * 0.9, 0.3, -5.5 + Math.floor(i / 8) * 2.2]));
+    // rebanho à direita (de Abel)
+    for (let i = 0; i < 9; i++) { const x = 7 + (i % 3) * 1.4 + r(), z = -5 + Math.floor(i / 3) * 1.6; scene.add(sph(0.45, '#f4f1ea', [x, 0.5, z], [1.3, 0.9, 0.9]), sph(0.2, '#2b2b2b', [x + 0.55, 0.65, z], [1.2, 1, 1])); }
+    // dois altares de pedra: Caim em x=-1.6, Abel em x=1.6 (z=-3)
+    const pedra = '#8d8a84';
+    for (const x of [-1.6, 1.6]) for (let k = 0; k < 7; k++) scene.add(sph(0.32 + r() * 0.12, pedra, [x + (r() - 0.5) * 0.7, 0.25 + Math.floor(k / 4) * 0.4, -3 + (r() - 0.5) * 0.5], [1, 0.7, 1]));
+    scene.add(sph(0.18, '#d9b24a', [-1.6, 1.0, -3], [2, 0.5, 1]), sph(0.14, '#c97a3a', [-1.4, 1.0, -2.9]));
+    // fumaça que sobe do altar de Abel (params.fumaca, padrão sim)
+    const fum = [];
+    if (params.fumaca !== false && params.fumaca !== 'nao') for (let i = 0; i < 10; i++) { const s = sph(0.25, '#d8d8d8', [1.6, 1.2, -3]); scene.add(s); fum.push(s); }
+    // ao longe (z≈-70), o jardim do Éden: morro verde com brilho
+    scene.add(sph(30, '#3f8f4a', [0, -14, -90], [2.2, 1, 1]));
+    const eg = new THREE.PointLight('#fff1b0', 1.2, 80); eg.position.set(0, 10, -70); scene.add(eg);
+    for (let i = 0; i < 10; i++) scene.add(sph(0.4 + r() * 0.5, pedra, [(r() - 0.5) * 30, 0, -12 + r() * 20], [1, 0.5, 1]));
+    mountains(scene, p, -200);
+    return { scene, update: (t) => fum.forEach((s, i) => { const k = (t * 0.35 + i / fum.length) % 1; s.position.set(1.6 + Math.sin(k * 6 + i) * 0.3, 1.2 + k * 4, -3); s.scale.setScalar(0.6 + k * 1.6); }) };
+  },
+});
+Object.assign(SET_CATALOG, {
+  eden: 'Jardim do Éden: gramado florido, rio à direita (x≈6), Árvore do Conhecimento no centro em [0,-5] com frutos vermelhos e a serpente enrolada no tronco (cabeça em ≈[0.2,2.6,-4]; params.serpente:false tira), Árvore da Vida ao fundo em [-6,-11] com frutos dourados que brilham, mata e palmeiras em volta. params.presenca:true = luz da Presença atrás das árvores em [3,3,-9]. params.portao:true = portão leste em z≈9 com a espada flamejante girando e duas formas de luz (querubins). Câmera em z≈3 olhando -z.',
+  campo: 'Campo fora do Éden (tarde por padrão): terra lavrada com trigo à esquerda (x≈-8), rebanho de ovelhas à direita (x≈7..10), dois altares de pedra em z=-3: o de Caim em x=-1.6 (com frutos da terra) e o de Abel em x=1.6 com fumaça subindo (params.fumaca:false tira). Ao longe (z≈-70) o morro verde e brilhante do Éden. Câmera em z≈3.',
+});

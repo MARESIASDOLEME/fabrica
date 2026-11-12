@@ -1,0 +1,55 @@
+{
+  "titulo": "O Fruto",
+  "texto_topo": "POV: você é Adão e só existe UMA regra",
+  "legenda_post": "Ep. 1 · Só uma árvore era proibida. O que Adão fez? Comenta A ou B 👇 Resposta no próximo episódio. Gênesis 2:15–3:6 · Texto: Bíblia Livre (BLIVRE), CC BY 3.0 BR.",
+  "hashtags": ["#biblia", "#pov", "#genesis", "#adaoeeva", "#oqueelefez"],
+  "personagens": {},
+  "cenas": [
+    {
+      "cenario": "eden", "params": { "horario": "dia", "serpente": false, "presenca": true }, "transicao": "corte",
+      "trilha": "tensao_baixa", "sfx": [{ "t": 0.0, "tipo": "impacto_grave" }, { "t": 0.55, "tipo": "batida_coracao" }],
+      "elenco": [],
+      "camera": [{ "t": 0, "pos": [0, 1.6, 4], "olhar": [3, 3, -9] }, { "t": 0.6, "pos": [0, 1.6, 2.2], "olhar": [0, 2.6, -5] }, { "t": 1, "pos": [0, 1.6, 1.6], "olhar": [0, 3.4, -5] }],
+      "maos": [{ "t": 0, "pose": "repouso" }, { "t": 0.6, "pose": "apontar" }],
+      "tremor": [{ "t0": 0.0, "t1": 0.08, "amp": 0.02 }],
+      "falas": [
+        { "quem": "deus", "texto": "Adão. De toda árvore do jardim comerás livremente." },
+        { "quem": "deus", "texto": "Mas da árvore da ciência do bem e do mal, dela não comerás." },
+        { "quem": "voce", "texto": "Aquela ali, no meio do jardim?" },
+        { "quem": "deus", "texto": "No dia em que dela comeres, certamente morrerás." }
+      ]
+    },
+    {
+      "cenario": "eden", "params": { "horario": "tarde", "serpente": true }, "transicao": "piscar",
+      "trilha": "tensao_crescente", "sfx": [{ "t": 0.05, "tipo": "sussurro" }, { "t": 0.45, "tipo": "estalo" }, { "t": 0.8, "tipo": "riser" }],
+      "elenco": [{ "id": "eva", "caminho": [{ "t": 0, "em": [-2.2, -1.2] }, { "t": 0.5, "em": [-0.7, -3.6] }, { "t": 0.85, "em": [-0.6, -0.4] }], "gestos": [{ "t0": 0.3, "t1": 0.45, "tipo": "falar" }, { "t0": 0.85, "t1": 1, "tipo": "apontar" }] }],
+      "camera": [{ "t": 0, "pos": [0.6, 1.6, 3.2], "olhar": [0.2, 2.5, -4] }, { "t": 0.25, "pos": [0.4, 1.6, 2.6], "olhar": "eva" }, { "t": 0.85, "pos": [0.2, 1.6, 1.8], "olhar": "eva" }, { "t": 1, "pos": [0.1, 1.6, 1.3], "olhar": "eva" }],
+      "maos": [{ "t": 0, "pose": "repouso" }, { "t": 0.6, "pose": "empurrar" }, { "t": 0.9, "pose": "escondidas" }],
+      "tremor": [{ "t0": 0.86, "t1": 0.95, "amp": 0.03 }],
+      "falas": [
+        { "quem": "serpente", "texto": "É assim que Deus disse: não comereis de toda árvore do jardim?" },
+        { "quem": "eva", "texto": "Podemos comer de todas. Só daquela não. Nem tocar, senão morremos." },
+        { "quem": "serpente", "texto": "Certamente não morrereis." },
+        { "quem": "serpente", "texto": "Deus sabe que, no dia em que comerdes, vossos olhos se abrirão." },
+        { "quem": "voce", "texto": "Eva... quem está falando com você?" },
+        { "quem": "eva", "texto": "Olha como é bonita, Adão. Ela dá entendimento." },
+        { "quem": "eva", "texto": "Eu comi. E olha: não morri." },
+        { "quem": "eva", "texto": "Agora é a sua vez. Toma." }
+      ]
+    }
+  ],
+  "escolha": {
+    "pergunta": "O QUE ADÃO FEZ?",
+    "chamada": "O QUE ELE FEZ? · COMENTA A OU B",
+    "mostrar_pergunta": true,
+    "opcoes": [
+      { "rotulo": "Recusou o fruto", "desfecho": "apocalipse" },
+      { "rotulo": "Comeu também", "desfecho": "continua" }
+    ],
+    "pista_justa": "Ele estava ali o tempo todo e não impediu a conversa (Gn 3:6: 'ao marido, que estava com ela').",
+    "desfecho_apocalipse": "Não foi isso... Gênesis 3:6 conta outra história. Amanhã, a pergunta que ninguém quer ouvir."
+  },
+  "pistas_plantadas": ["Adão viu a árvore e ouviu a regra, mas ficou só olhando", "a Presença aparece como luz atrás das árvores"],
+  "perguntas_abertas": ["O que acontece quando Deus voltar ao jardim?", "Quem é a serpente?"],
+  "resumo": "Deus proíbe a árvore do conhecimento; a serpente convence Eva, que come e oferece o fruto a Adão. Corte antes da decisão dele."
+}

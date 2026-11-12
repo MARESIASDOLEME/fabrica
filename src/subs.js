@@ -48,7 +48,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
       const cor = i === 0 ? '&H5A80FF&' : '&HC9DC7F&';
       ev.push(`Dialogue: 3,${tc(escolha.start + 0.3 + i * 0.35)},${tc(escolha.end)},Escolha,,0,0,0,,{\\an5\\pos(${W / 2},${y0 + i * 300})\\3c${cor}\\fad(200,0)}${esc(o.letra || 'AB'[i])} — ${esc(o.rotulo || '')}`);
     });
-    ev.push(`Dialogue: 3,${tc(escolha.start + 1.0)},${tc(escolha.end)},Chamada,,0,0,0,,{\\fad(200,0)}COMENTA A OU B · A MAIS VOTADA DECIDE`);
+    ev.push(`Dialogue: 3,${tc(escolha.start + 1.0)},${tc(escolha.end)},Chamada,,0,0,0,,{\\fad(200,0)}${esc(escolha.chamada || 'COMENTA A OU B · A MAIS VOTADA DECIDE')}`);
+    if (escolha.pergunta && escolha.mostrar_pergunta) ev.push(`Dialogue: 3,${tc(escolha.start + 0.1)},${tc(escolha.end)},Topo,,0,0,0,,{\\fad(200,0)}${esc(escolha.pergunta)}`);
   }
   for (const l of linhas) {
     const ps = pedacos(l.text);

@@ -1,0 +1,65 @@
+{
+  "titulo": "O Guarda do Meu Irmão",
+  "texto_topo": "POV: você é Caim e Deus recusou a sua oferta",
+  "legenda_post": "Ep. 3 · Resposta do ep. 2: Adão culpou a mulher (Gn 3:12). Agora, o primeiro filho. O que Caim respondeu? A ou B 👇 Gênesis 4:1–9 · Texto: Bíblia Livre (BLIVRE), CC BY 3.0 BR.",
+  "hashtags": ["#biblia", "#pov", "#genesis", "#caimeabel", "#oqueelefez"],
+  "personagens": {
+    "narrador": { "nome": "Gênesis 3:12", "voz": "Charon", "estilo_voz": "narrador grave, lento", "cor_legenda": "#d9d9d9", "visual": {} }
+  },
+  "cenas": [
+    {
+      "cenario": "campo", "params": { "horario": "tarde" }, "transicao": "corte",
+      "trilha": "tensao_baixa", "sfx": [{ "t": 0.0, "tipo": "impacto_grave" }, { "t": 0.5, "tipo": "estalo" }],
+      "elenco": [{ "id": "abel", "em": [2.4, -2.2], "gestos": [{ "t0": 0.35, "t1": 0.55, "tipo": "bracos" }] }],
+      "camera": [{ "t": 0, "pos": [-1.2, 1.6, 2.8], "olhar": [-1.6, 0.8, -3] }, { "t": 0.35, "pos": [-0.6, 1.6, 2.4], "olhar": [1.6, 2.2, -3] }, { "t": 1, "pos": [0, 1.6, 1.8], "olhar": "abel" }],
+      "maos": [{ "t": 0, "pose": "repouso" }, { "t": 0.2, "pose": "apontar" }, { "t": 0.5, "pose": "repouso" }],
+      "tremor": [],
+      "falas": [
+        { "quem": "narrador", "texto": "A mulher que me deste, ela me deu da árvore, e eu comi." },
+        { "quem": "voce", "texto": "Meu altar. Nada. Nem uma fagulha." },
+        { "quem": "abel", "texto": "Caim! Olha a fumaça do meu! Ele aceitou!" },
+        { "quem": "voce", "texto": "Eu trabalhei a terra o ano inteiro." }
+      ]
+    },
+    {
+      "cenario": "campo", "params": { "horario": "tarde" }, "transicao": "corte",
+      "trilha": "tensao_crescente", "sfx": [{ "t": 0.1, "tipo": "trovao" }, { "t": 0.55, "tipo": "batida_coracao" }],
+      "elenco": [{ "id": "abel", "caminho": [{ "t": 0, "em": [2.4, -2.2] }, { "t": 0.75, "em": [1.0, -0.6] }], "gestos": [{ "t0": 0.8, "t1": 1, "tipo": "acenar" }] }],
+      "camera": [{ "t": 0, "pos": [0, 1.6, 1.8], "olhar": [0, 3, -20] }, { "t": 0.65, "pos": [0, 1.6, 1.8], "olhar": [0, 2.2, -20] }, { "t": 1, "pos": [0.2, 1.6, 1.6], "olhar": "abel" }],
+      "maos": [{ "t": 0, "pose": "repouso" }, { "t": 0.3, "pose": "escondidas" }],
+      "tremor": [{ "t0": 0.1, "t1": 0.16, "amp": 0.02 }],
+      "falas": [
+        { "quem": "deus", "texto": "Por que te iraste? E por que caiu o teu semblante?" },
+        { "quem": "deus", "texto": "Se não fizeres o bem, o pecado jaz à porta. Mas tu dominarás sobre ele." },
+        { "quem": "abel", "texto": "Irmão? Vem comigo ao campo. Quero te mostrar uma coisa." }
+      ]
+    },
+    {
+      "cenario": "campo", "params": { "horario": "noite", "fumaca": false }, "transicao": "piscar",
+      "trilha": "silencio", "sfx": [{ "t": 0.12, "tipo": "respiracao" }, { "t": 0.45, "tipo": "impacto_grave" }, { "t": 0.75, "tipo": "riser" }],
+      "elenco": [],
+      "camera": [{ "t": 0, "pos": [-4, 1.6, -6], "olhar": [-8, 0.4, -6] }, { "t": 0.4, "pos": [-3.8, 1.6, -6], "olhar": [0, 1.6, -20] }, { "t": 1, "pos": [-3.6, 1.6, -6.2], "olhar": [0, 3.5, -40] }],
+      "maos": [{ "t": 0, "pose": "escondidas" }],
+      "tremor": [{ "t0": 0.45, "t1": 0.55, "amp": 0.04 }],
+      "falas": [
+        { "quem": "voce", "texto": "Ninguém viu. Ninguém vai saber." },
+        { "quem": "deus", "texto": "Caim." },
+        { "quem": "deus", "texto": "Onde está Abel, teu irmão?" }
+      ]
+    }
+  ],
+  "escolha": {
+    "pergunta": "O QUE CAIM RESPONDEU?",
+    "chamada": "O QUE ELE FEZ? · COMENTA A OU B",
+    "mostrar_pergunta": true,
+    "opcoes": [
+      { "rotulo": "Confessou tudo", "desfecho": "apocalipse" },
+      { "rotulo": "Não sei. Sou o guarda?", "desfecho": "continua" }
+    ],
+    "pista_justa": "'Ninguém viu. Ninguém vai saber.' E, como o pai em Gn 3:12, ele foge da culpa (Gn 4:9).",
+    "desfecho_apocalipse": "Não foi isso... Gênesis 4:9 traz a resposta mais fria da Bíblia. Próximo: o sinal de Caim."
+  },
+  "pistas_plantadas": ["altar de Caim sem fogo", "'Ninguém viu'", "o Éden brilhando longe"],
+  "perguntas_abertas": ["Qual será o destino de Caim?", "O que é o sinal de Caim?"],
+  "resumo": "A oferta de Abel é aceita e a de Caim não; Deus avisa Caim; Abel o chama ao campo. À noite, Caim sozinho; Deus pergunta onde está Abel. O ato fica fora de quadro."
+}
