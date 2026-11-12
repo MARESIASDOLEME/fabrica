@@ -49,6 +49,12 @@ export async function renderVideo(TL, outFile, { audio, ass, fontsDir, onProgres
   if (audio) args.push('-i', audio);
   const vf = [];
   if (TL.outWidth && TL.outWidth !== TL.width) vf.push(`scale=${TL.outWidth}:${TL.outHeight}:flags=lanczos`);
+  // Grade de cor do canal (antes das legendas, para não tingir o texto)
+  const GRADES = {
+    // "jogo de mundo aberto": cores saturadas, sombras azuladas, altas luzes quentes, contraste alto, vinheta e grão leve
+    gta: 'eq=contrast=1.12:saturation=1.45:gamma=1.08:brightness=0.03,colorbalance=bs=0.05:rh=0.08:gh=0.03:bh=-0.07,curves=all=0/0 0.25/0.22 0.75/0.82 1/1,unsharp=5:5:0.6,vignette=angle=PI/7,noise=alls=4:allf=t',
+  };
+  if (TL.grade && GRADES[TL.grade]) vf.push(GRADES[TL.grade]);
   if (ass) vf.push(`subtitles=${ass.replace(/:/g, '\\:')}${fontsDir ? `:fontsdir=${fontsDir}` : ''}`);
   if (vf.length) args.push('-vf', vf.join(','));
   args.push('-c:v', 'libx264', '-preset', process.env.X264_PRESET || 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-r', String(TL.fps));

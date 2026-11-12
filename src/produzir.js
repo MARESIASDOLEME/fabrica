@@ -49,7 +49,7 @@ export async function montarTimeline(ep, canal, { log = console.log } = {}) {
   return {
     width: res[0], height: res[1], outWidth: 1080, outHeight: 1920, fps, duration: t,
     seed: [...(ep.titulo || 'x')].reduce((a, ch) => a + ch.charCodeAt(0), 0),
-    fisheye: canal.estilo?.fisheye ?? 1.1, fov: canal.estilo?.fov ?? 92,
+    fisheye: canal.estilo?.fisheye ?? 1.1, fov: canal.estilo?.fov ?? 92, grade: canal.estilo?.grade,
     hands: canal.protagonista.maos || {},
     scenes, lines,
   };
@@ -80,6 +80,7 @@ export async function produzir(ep, canal, { pastaSaida, log = console.log } = {}
 
   log('3/4 legendas');
   const ass = gerarASS({
+    tema: canal.estilo?.legenda,
     linhas: TL.lines, saida: path.join(dir, 'legendas.ass'),
     topo: ep.texto_topo ? { text: ep.texto_topo, start: 0, end: TL.scenes[0].end } : null,
     escolha: ep.escolha ? { ...ep.escolha, start: Math.max(0, TL.duration - 4.3), end: TL.duration } : null,

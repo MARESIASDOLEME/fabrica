@@ -20,7 +20,14 @@ function pedacos(texto, max = 30) {
 }
 
 // linhas: [{start,end,text,color}], topo: {text, start, end}
-export function gerarASS({ linhas, topo, escolha, saida, W = 1080, H = 1920 }) {
+const TEMAS = {
+  // legenda de jogo de mundo aberto: fonte pesada, contorno preto grosso, sem caixa; cartão final em faixa escura
+  gta: `Style: Fala,Inter Display Black,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,1,0,1,6,2,2,90,90,560,1
+Style: Escolha,Inter Display Black,72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,-1,0,0,0,100,100,1,0,3,30,0,5,90,90,0,1
+Style: Chamada,Inter Display Black,56,&H0000C8FF,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,1,0,1,5,2,2,90,90,300,1
+Style: Topo,Inter Display Black,62,&H0000C8FF,&H00FFFFFF,&H00000000,&HB4000000,-1,0,0,0,100,100,1,0,3,20,0,8,120,120,230,1`,
+};
+export function gerarASS({ linhas, topo, escolha, saida, tema, W = 1080, H = 1920 }) {
   const head = `[Script Info]
 ScriptType: v4.00+
 PlayResX: ${W}
@@ -30,10 +37,10 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Fala,Fredoka,80,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,-1,0,0,0,100,100,0,0,1,7,0,2,90,90,560,1
+${TEMAS[tema] || `Style: Fala,Fredoka,80,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,-1,0,0,0,100,100,0,0,1,7,0,2,90,90,560,1
 Style: Escolha,Fredoka,74,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8000000,-1,0,0,0,100,100,0,0,3,26,0,5,90,90,0,1
 Style: Chamada,Fredoka,58,&H004BB8F2,&H00FFFFFF,&H00141414,&H00000000,-1,0,0,0,100,100,0,0,1,6,0,2,90,90,300,1
-Style: Topo,Fredoka,64,&H00141414,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,120,120,230,1
+Style: Topo,Fredoka,64,&H00141414,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,120,120,230,1`}
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
