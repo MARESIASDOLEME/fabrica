@@ -18,7 +18,9 @@ async function gemini(text, voice, estilo) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new Error('GEMINI_API_KEY não definida no .env');
   const model = process.env.TTS_MODEL || 'gemini-3.8-flash-tts';
-  const prompt = `${estilo ? `Fale em português do Brasil, ${estilo}:` : 'Fale em português do Brasil:'} ${text}`;
+  // Só o texto da fala: este modelo não aceita instrução de direção e lia o estilo em voz alta.
+  // O estilo fica a cargo da voz escolhida (VOZES no catálogo).
+  const prompt = text;
   for (let tentativa = 1; tentativa <= 4; tentativa++) {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST',
@@ -43,7 +45,7 @@ async function gemini(text, voice, estilo) {
 // Retorna caminho de um .wav para a fala
 export async function falar(text, voice, estilo, provider = process.env.TTS_PROVIDER || 'gemini') {
   fs.mkdirSync(CACHE, { recursive: true });
-  const h = crypto.createHash('sha1').update([provider === 'nenhum' ? 'nenhum' : 'gemini', voice, estilo || '', text].join('|')).digest('hex').slice(0, 16);
+  const h = crypto.createHash('sha1').update([provider === 'nenhum' ? 'nenhum' : 'gemini3', voice, estilo || '', text].join('|')).digest('hex').slice(0, 16);
   const out = path.join(CACHE, h + '.wav');
   if (fs.existsSync(out)) return out;
   if (provider === 'nenhum') {
